@@ -1,9 +1,9 @@
 const express=require('express');
 const router=express.Router();
-const servicios=require('../servicios/Estudiantes');
-router.get('/:idestudiantes',async function(req,res,next){
+const servicios=require('../servicios/Docente');
+router.get('/:idDocente',async function(req,res,next){
     try {
-        res.json(await servicios.getestudiante([req.params.idEstudiantes]));
+        res.json(await servicios.getDOCENTE([req.params.idDocente]));
     } catch (error) {
         console.error('error', error.message);
         next(error);

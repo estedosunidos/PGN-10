@@ -1,0 +1,9 @@
+const mysql2= require('mysql2/promise');
+const conection=require('../BASE DE DATO/conection');
+async function getadministrador(idestudiante){
+    const sql='SELECT * FROM mydb.Administrador where idAdministrador=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conectin1.execute(sql,idestudiante);
+    return resul
+}
+module.exports={getadministrador}

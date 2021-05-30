@@ -1,9 +1,9 @@
 const express=require('express');
 const router=express.Router();
-const servicios=require('../servicios/Usuario');
-router.get('/:Documento',async function(req,res,next){
+const servicios=require('../servicios/Asignatura');
+router.get('/:idAsignatura',async function(req,res,next){
     try {
-        res.json(await servicios.getusuario([req.params.Documento]));
+        res.json(await servicios.getasignatura([req.params.idAsignatura]));
     } catch (error) {
         console.error('error', error.message);
         next(error);
