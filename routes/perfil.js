@@ -10,3 +10,4 @@ router.get('/:idperfil',async function(req,res,next){
     }
 });
 module.exports=router;
+smk
