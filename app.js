@@ -10,6 +10,16 @@ var UsuarioRouter = require('./routes/Usuario');
 var EstudiantesRouter = require('./routes/Estudiantes');
 var DocenteRouter = require('./routes/Docente');
 var AdministradorRouter = require('./routes/Administrador');
+var AsignaturaRouter = require('./routes/Asignatura');
+var CursoRouter = require('./routes/Curso');
+var NotasRouter=require('./routes/Notas');
+var AsistenciaRouter=require('./routes/Asistencia');
+var EvaluacionesTipoRouter=require('./routes/EvaluacionesTipo');
+var PlanEvaluacionRouter=require('./routes/PlanEvaluacion');
+var Franja_HorarioRouter=require('./routes/Franja_Horario');
+var UbicacionRouter=require('./routes/Ubicacion');
+var CarreraRouter=require('./routes/Carrera');
+var Estudio_RealizadoRouter=require('./routes/Estudio_Realizado');
 
 var app = express();
 
