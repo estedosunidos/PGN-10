@@ -13,4 +13,4 @@ async function getanucios(){
     const [resul, ]=await conection1.execute(sql,);
     return resul
 }
-module.exports={getanuncio,getanuncios}
+module.exports={getanucio,getanucios}
