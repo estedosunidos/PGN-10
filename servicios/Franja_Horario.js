@@ -1,5 +1,5 @@
 const mysql2= require('mysql2/promise');
-const conection=require('../BASE DE DATO/conection');
+const conection=require('../confi/conection');
 async function getFranja_horario(idFranja_Horario){
     const sql='SELECT * FROM mydb.Franja_Horario where idFranja_Horario =?'
     const conectin1=await mysql2.createConnection(conection.db);

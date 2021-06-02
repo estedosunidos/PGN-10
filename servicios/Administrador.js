@@ -1,5 +1,5 @@
 const mysql2= require('mysql2/promise');
-const conection=require('../BASE DE DATO/conection');
+const conection=require('../confi/conection');
 //const { connect } = require('../routes/Administrador');
 async function getadministrador(idestudiante){
     const sql='SELECT * FROM mydb.Administrador where idAdministrador=?'
