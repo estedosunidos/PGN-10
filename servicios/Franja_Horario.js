@@ -6,4 +6,10 @@ async function getFranja_horario(idFranja_Horario){
     const [resul,]=await conectin1.execute(sql,idFranja_Horario);
     return resul
 }
-module.exports={getFranja_horarioe}
+async function getFranja_horarios(){
+    const sql='SELECT * FROM mydb.Franja_Horario'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conection1.execute(sql,);
+    return resul
+}
+module.exports={getFranja_horario,getFranja_horarios}

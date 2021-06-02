@@ -6,4 +6,10 @@ async function getEstudio_Realizado(idEstudio_Realizado){
     const [resul,]=await conectin1.execute(sql,idEstudio_Realizado);
     return resul
 }
-module.exports={getEstudio_Realizado}
+async function getEstudio_Realizados(){
+    const sql='SELECT * FROM mydb.Estudio_Realizado'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conection1.execute(sql,);
+    return resul
+}
+module.exports={getEstudio_Realizado,getEstudio_Realizados}

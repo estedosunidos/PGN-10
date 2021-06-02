@@ -6,4 +6,10 @@ async function getidEvaluacionesTipo(idEvaluacionesTipo){
     const [resul,]=await conectin1.execute(sql,idEvaluacionesTipo);
     return resul
 }
-module.exports={getidEvaluacionesTipo}
+async function getEvaluacionesTipos(){
+    const sql='SELECT * FROM mydb.EvaluacionesTipo'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conection1.execute(sql,);
+    return resul
+}
+module.exports={getidEvaluacionesTipo,getEvaluacionesTipos}

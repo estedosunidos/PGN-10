@@ -6,5 +6,11 @@ async function getusuario(Documento){
     const [resul,]=await conectin1.execute(sql,Documento);
     return resul
 }
-module.exports={getusuario}
+async function getusuarios(){
+    const sql='SELECT * FROM mydb.usuario'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conection1.execute(sql,);
+    return resul
+}
+module.exports={getusuario,getusuarios}
 

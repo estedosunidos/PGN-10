@@ -6,4 +6,10 @@ async function getcarrera(idCarreraa){
     const [resul,]=await conectin1.execute(sql,idCarrera);
     return resul
 }
-module.exports={getcarrera}
+async function getcarreras(){
+    const sql='SELECT * FROM mydb.Carrera'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conection1.execute(sql,);
+    return resul
+}
+module.exports={getcarrera,getcarreras}

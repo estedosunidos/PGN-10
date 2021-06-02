@@ -9,4 +9,12 @@ router.get('/:idCarrera',async function(req,res,next){
         next(error);
     }
 });
+router.get('/',async function(req,res,next){
+    try {
+        res.json(await servicios.getcarreras());
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

@@ -9,4 +9,12 @@ router.get('/:idFranja_Horario',async function(req,res,next){
         next(error);
     }
 });
+router.get('/',async function(req,res,next){
+    try {
+        res.json(await servicios.getFranja_horarios());
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

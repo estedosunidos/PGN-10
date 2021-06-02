@@ -6,5 +6,11 @@ async function getperfil(idperfil){
     const [resul,]=await conectin1.execute(sql,idperfil);
     return resul
 }
-module.exports={getperfil}
+async function getperfiles(){
+    const sql='SELECT * FROM mydb.perfil'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conection1.execute(sql,);
+    return resul
+}
+module.exports={getperfil,getperfiles}
 
