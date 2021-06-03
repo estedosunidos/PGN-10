@@ -1,13 +1,13 @@
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 async function getubicaion(idUbicacion){
-    const sql='SELECT * FROM mydb.Ubicacion where idUbicacion=?'
+    const sql='SELECT * FROM pgn.ubicacion where idUbicacion=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idUbicacion);
     return resul
 }
 async function getubicaiones(){
-    const sql='SELECT * FROM mydb.Ubicacion'
+    const sql='SELECT * FROM pgn.ubicacion'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conection1.execute(sql,);
     return resul
