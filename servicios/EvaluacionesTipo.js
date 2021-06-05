@@ -12,4 +12,13 @@ async function getEvaluacionesTipos(){
     const [resul, ]=await conection1.execute(sql,);
     return resul
 }
-module.exports={getidEvaluacionesTipo,getEvaluacionesTipos}
+async function createvalueacionestipo(idEvaluacionesTipo){
+    const sql='INSERT INTO `pgn`.`evaluacionestipo` (`Descripcion`) VALUES (?)'
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idEvaluacionesTipo);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'el tipo de evaluacion fue creado'}
+    }
+    return {codigo:'error',descricion:'El tipo de evaluacion no fue creado exitosamente'}
+}
+module.exports={getidEvaluacionesTipo,getEvaluacionesTipos,createvalueacionestipo}

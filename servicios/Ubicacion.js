@@ -12,4 +12,13 @@ async function getubicaiones(){
     const [resul, ]=await conection1.execute(sql,);
     return resul
 }
-module.exports={getubicaion,getubicaiones}
+async function createubicacion(idUbicacion){
+    const sql='INSERT INTO `pgn`.`ubicacion` (`Capacidad`, `Direccion`) VALUES (?,?)'
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idUbicacion);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La ubicacion fue creado'}
+    }
+    return {codigo:'error',descricion:'La ubicacion no fue creado exitosamente'}
+}
+module.exports={getubicaion,getubicaiones,createubicacion}

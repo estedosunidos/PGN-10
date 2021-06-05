@@ -37,6 +37,18 @@ app.use('/', indexRouter);
 app.use('/perfil', perfilRouter);
 app.use('/curso',  CursoRouter);
 app.use('/asignatura',AsignaturaRouter);
+app.use('/estudioreal',Estudio_RealizadoRouter);
+app.use('/carrera',CarreraRouter);
+app.use('/ubicacion',UbicacionRouter);
+app.use('/franjahorario',Franja_HorarioRouter);
+app.use('/planevaluacion',PlanEvaluacionRouter);
+app.use('/evaluaciontipo',EvaluacionesTipoRouter);
+app.use('/asistencia',AsistenciaRouter);
+app.use('/notas',NotasRouter);
+app.use('/administrador',AdministradorRouter);
+app.use('/docente',DocenteRouter);
+app.use('/estudiantes',EstudiantesRouter);
+app.use('/usuario',UsuarioRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
