@@ -9,7 +9,16 @@ async function getestudiante(idestudiante){
 async function getestudiantes(){
     const sql='SELECT * FROM pgn.estudiantes'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conection1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-module.exports={getestudiante,getestudiantes}
+async function creteestudiantes(){
+
+}
+async function deleteestudiantes(){
+
+}
+async function updateestudiantes(){
+
+}
+module.exports={getestudiante,getestudiantes,creteestudiantes,deleteestudiantes,updateestudiantes}
