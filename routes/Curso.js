@@ -25,4 +25,20 @@ router.post('/',async function(req,res,next){
         next(error);
     }
 });
+router.delete('/:idCurso',async function(req,res,next){
+    try {
+        res.json(await servicios.deletecurso([req.params.idCurso]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idCurso',async function(req,res,next){
+    try {
+        res.json(await servicios.updatecurso(req.params.idCurso,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

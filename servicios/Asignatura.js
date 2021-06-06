@@ -13,7 +13,7 @@ async function getasignaturas(){
     return resul
 }
 async function createasignatura(asignatura){
-    const sql='INSERT INTO `pgn`.`asignatura` (`Nombre_Asignatura`, `Semestre`, `Descripcion`, `Unidad_de_credito`, `Observacion`, `Contenido`) VALUES (?,?,?,?,?,?)'
+    const sql='INSERT INTO `pgn`.`asignatura` (`Nombre_Asignatura`, `Semestre`, `Descripcion`, `Unidad_de_credito`, `Observacion`, `Contenido`,`idAdministrador`) VALUES (?,?,?,?,?,?,?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,asignatura);
     if(resul.affectedRows){
@@ -21,4 +21,13 @@ async function createasignatura(asignatura){
     }
     return {codigo:'error',descricion:'La asignatura  no fue creado exitosamente'}
 }
-module.exports={getasignatura,getasignaturas,createasignatura}
+async function deleteasignatura(idAsignatura){
+   const sql='DELETE FROM `pgn`.`asignatura` WHERE `idAsignatura` = ?'
+   const conection1=await mysql2.createConnection(conection.db);
+   const [resul,]=await conection1.execute(sql,idAsignatura);
+   if(resul.affectedRows){
+    return {codigo:'ok',descricion:'La asignatura fue eliminado'}
+}
+return {codigo:'error',descricion:'La asignatura no fue eliminado  exitosamente'}
+}
+module.exports={getasignatura,getasignaturas,createasignatura,deleteasignatura}

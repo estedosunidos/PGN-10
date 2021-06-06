@@ -9,10 +9,10 @@ async function getidEvaluacionesTipo(idEvaluacionesTipo){
 async function getEvaluacionesTipos(){
     const sql='SELECT * FROM pgn.evaluacionestipo'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conection1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-async function createvalueacionestipo(idEvaluacionesTipo){
+async function createEvalueacionestipo(idEvaluacionesTipo){
     const sql='INSERT INTO `pgn`.`evaluacionestipo` (`Descripcion`) VALUES (?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idEvaluacionesTipo);
@@ -21,4 +21,10 @@ async function createvalueacionestipo(idEvaluacionesTipo){
     }
     return {codigo:'error',descricion:'El tipo de evaluacion no fue creado exitosamente'}
 }
-module.exports={getidEvaluacionesTipo,getEvaluacionesTipos,createvalueacionestipo}
+async function deleteEvalueacionestipo(){
+
+}
+async function updateEvaluacionestipo(){
+
+}
+module.exports={getidEvaluacionesTipo,getEvaluacionesTipos,createEvalueacionestipo,deleteEvalueacionestipo,updateEvaluacionestipo}

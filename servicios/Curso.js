@@ -21,4 +21,23 @@ async function createcurso(Observaciones){
     }
     return {codigo:'error',descricion:'El curso no fue creado exitosamente'}
 }
-module.exports={getcurso,getcursos,createcurso}
+async function deletecurso(idCurso){
+    const sql='DELETE FROM `pgn`.`curso`` WHERE `idCurso` = ?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idCurso);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'El curso fue eliminado'}
+    }
+    return {codigo:'error',descricion:'El curso no fue eliminado  exitosamente'} 
+}
+async function updatecurso(idCurso,observacion){
+    observacion.push(idCurso);
+    const sql='UPDATE `pgn`.`curso` SET `observacion` = ? WHERE `idCurso` =?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,observacion);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'El curso fue actualizado'}
+    }
+    return {codigo:'error',descricion:'El curso no fue actualizado  exitosamente'}
+}
+module.exports={getcurso,getcursos,createcurso,deletecurso,updatecurso}

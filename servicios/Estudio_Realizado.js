@@ -9,7 +9,16 @@ async function getEstudio_Realizado(idEstudio_Realizado){
 async function getEstudio_Realizados(){
     const sql='SELECT * FROM pgn.estudio realizado'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conection1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-module.exports={getEstudio_Realizado,getEstudio_Realizados}
+async function createEstudio_Realizados(){
+
+}
+async function deleteEstudio_Realizados(){
+
+}
+async function updateEstudio_Realizados(){
+
+}
+module.exports={getEstudio_Realizado,getEstudio_Realizados,createEstudio_Realizados,deleteEstudio_Realizados,updateEstudio_Realizados}

@@ -17,4 +17,28 @@ router.get('/',async function(req,res,next){
         next(error);
     }
 });
+router.post('/',async function(req,res,next){
+    try {
+        res.json(await servicios.creatcarrera(Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.delete('/:idCarrera',async function(req,res,next){
+    try {
+        res.json(await servicios.deletecarrera([req.params.idCarrera]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idCarrera',async function(req,res,next){
+    try {
+        res.json(await servicios.updatecarrera(req.params.idCarrera,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

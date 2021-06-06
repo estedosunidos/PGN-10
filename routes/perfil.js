@@ -25,5 +25,21 @@ router.post('/',async function(req,res,next){
         next(error);
     }
 });
+router.delete('/:idperfil',async function(req,res,next){
+    try {
+        res.json(await servicios.deleteperfil([req.params.idperfil]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idperfil',async function(req,res,next){
+    try {
+        res.json(await servicios.updatepefil(req.params.idperfil,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;
 

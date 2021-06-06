@@ -9,7 +9,16 @@ async function getFranja_horario(idFranja_Horario){
 async function getFranja_horarios(){
     const sql='SELECT * FROM pgn.franja_horario'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conection1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-module.exports={getFranja_horario,getFranja_horarios}
+async function createFranja_horarios(){
+
+}
+async function deleteFranja_horarios(){
+
+}
+async function updateFranja_horarios(){
+
+}
+module.exports={getFranja_horario,getFranja_horarios,createFranja_horarios,deleteFranja_horarios,updateFranja_horarios}

@@ -9,7 +9,7 @@ async function getubicaion(idUbicacion){
 async function getubicaiones(){
     const sql='SELECT * FROM pgn.ubicacion'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conection1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
 async function createubicacion(idUbicacion){
@@ -21,4 +21,24 @@ async function createubicacion(idUbicacion){
     }
     return {codigo:'error',descricion:'La ubicacion no fue creado exitosamente'}
 }
-module.exports={getubicaion,getubicaiones,createubicacion}
+async function deleteubicacion(idUbicacion){
+    const sql='DELETE FROM `pgn`.`ubicacion`` WHERE `idUbicacion` = ?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idUbicacion);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La ubicacion fue eliminado'}
+    }
+    return {codigo:'error',descricion:'La ubicacion no fue eliminado  exitosamente'} 
+}
+async function updateubicacion(Capacidad,Direccion){
+    Capacidad.push(idUbicacion);
+    Direccion.push(idUbicacion);
+    const sql='UPDATE `pgn`.`ubicacion` SET `Capacidad` =?, Direccion = ? WHERE idUbicacion = ?';
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,[Capacidad,Direccion]);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La ubicacion fue actualizado'}
+    }
+    return {codigo:'error',descricion:'La ubicacion  no fue actualizado  exitosamente'}
+}
+module.exports={getubicaion,getubicaiones,createubicacion,deleteubicacion,updateubicacion}

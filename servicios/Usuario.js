@@ -9,7 +9,7 @@ async function getusuario(Documento){
 async function getusuarios(){
     const sql='SELECT * FROM pgn.usuario'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conection1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
 module.exports={getusuario,getusuarios}

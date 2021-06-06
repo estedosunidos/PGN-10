@@ -25,4 +25,20 @@ router.post('/',async function(req,res,next){
         next(error);
     }
 });
+router.delete('/:idAsignatura',async function(req,res,next){
+    try {
+        res.json(await servicios.deleteasignatura([req.params.idAsignatura]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idAsignatura',async function(req,res,next){
+    try {
+        res.json(await servicios.updateasignatura(req.params.idAsignatura,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

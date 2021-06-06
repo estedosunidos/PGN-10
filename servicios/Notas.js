@@ -9,7 +9,7 @@ async function getNota(idNotas){
 async function getNotas(){
     const sql='SELECT * FROM pgn.notas'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conection1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
 module.exports={getNota,getNotas}
