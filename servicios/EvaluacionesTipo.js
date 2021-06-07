@@ -21,8 +21,14 @@ async function createEvalueacionestipo(idEvaluacionesTipo){
     }
     return {codigo:'error',descricion:'El tipo de evaluacion no fue creado exitosamente'}
 }
-async function deleteEvalueacionestipo(){
-
+async function deleteEvalueacionestipo(idEvaluacionesTipo){
+    const sql='DELETE FROM `pgn`.`evaluacionestipo` WHERE `idEvaluacionesTipo` = ?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idEvaluacionesTipo);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'El evaluacion tipo  fue eliminado'}
+    }
+    return {codigo:'error',descricion:'El evaluacion tipo  no fue eliminado  exitosamente'}
 }
 async function updateEvaluacionestipo(){
 

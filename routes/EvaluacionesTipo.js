@@ -17,4 +17,28 @@ router.get('/',async function(req,res,next){
         next(error);
     }
 });
+router.post('/',async function(req,res,next){
+    try {
+        res.json(await servicios.createEvalueacionestipo(Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.delete('/:idEvaluacionesTipor',async function(req,res,next){
+    try {
+        res.json(await servicios.deleteEvalueacionestipo([req.params.idEvaluacionesTipo]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idEvaluacionesTipor',async function(req,res,next){
+    try {
+        res.json(await servicios.updateEvaluacionestipo(req.params.idEvaluacionesTipo,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

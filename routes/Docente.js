@@ -17,4 +17,28 @@ router.get('/',async function(req,res,next){
         next(error);
     }
 });
+router.post('/',async function(req,res,next){
+    try {
+        res.json(await servicios.createdocente(Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.delete('/:idDocente',async function(req,res,next){
+    try {
+        res.json(await servicios.deletedocente([req.params.idDocente]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idDocente',async function(req,res,next){
+    try {
+        res.json(await servicios.updatepefil(req.params.idDocente,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

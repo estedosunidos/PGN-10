@@ -12,11 +12,23 @@ async function getFranja_horarios(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-async function createFranja_horarios(){
-
+async function createFranja_horarios(idFranja_Horario){
+    const sql='INSERT INTO `pgn`.`franja_horario` (`HoraInicio`, `HoraFinal`, `Dia`) VALUES (?,?,?)'
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idFranja_Horario);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La franja horario fue creado'}
+    }
+    return {codigo:'error',descricion:'La franja horario no fue creado exitosamente'}
 }
-async function deleteFranja_horarios(){
-
+async function deleteFranja_horarios(idFranja_Horario){
+    const sql='DELETE FROM `pgn`.`franja_horario` WHERE `idFranja_Horario` = ?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idFranja_Horario);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La franja horaria fue eliminado'}
+    }
+    return {codigo:'error',descricion:'La franja horaria no fue eliminado  exitosamente'}
 }
 async function updateFranja_horarios(){
 
