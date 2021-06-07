@@ -12,4 +12,33 @@ async function getNotas(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-module.exports={getNota,getNotas}
+async function createnotas(idNotas){
+    const sql='INSERT INTO `pgn`.`notas` ( `Observacion`, `Calificacion`) VALUES (?,?)'
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idNotas);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La notas fue creado'}
+    }
+    return {codigo:'error',descricion:'La notas no fue creado exitosamente'}
+}
+async function deletenotas(idNotas){
+    const sql='DELETE FROM `pgn`.`notas`` WHERE `idNotas` = ?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idNotas);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La nota fue eliminado'}
+    }
+    return {codigo:'error',descricion:'La nota no fue eliminado  exitosamente'} 
+}
+async function updatenotas(Obsevacion,Calificacion){
+    Obsevacion.push(idNotas);
+    Calificacion.push(idNotas);
+    const sql='UPDATE `pgn`.`notas` SET `Observacion` =?, Calificacion = ? WHERE idNotas = ?';
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,[Obsevacion,Calificacion]);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La nota fue actualizado'}
+    }
+    return {codigo:'error',descricion:'La nota no fue actualizado  exitosamente'}
+}
+module.exports={getNota,getNotas,createnotas,deletenotas,updatenotas}

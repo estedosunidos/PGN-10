@@ -17,4 +17,28 @@ router.get('/',async function(req,res,next){
         next(error);
     }
 });
+router.post('/',async function(req,res,next){
+    try {
+        res.json(await servicios.createubicacion(Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.delete('/:idUbicacion',async function(req,res,next){
+    try {
+        res.json(await servicios.deleteubicacion([req.params.idUbicacion]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idUbicacion',async function(req,res,next){
+    try {
+        res.json(await servicios.updateubicacion(req.params.idUbicacion,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

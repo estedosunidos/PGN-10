@@ -13,7 +13,7 @@ async function getdocentes(){
     return resul
 }
 async function createdocente(idDocente){
-    const sql='INSERT INTO `pgn`.`docente` (`idDocente`,`Documento `)  VALUES (?,?)'
+    const sql='INSERT INTO `pgn`.`docente` (`Documento `)  VALUES (?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idDocente);
     if(resul.affectedRows){
@@ -30,4 +30,15 @@ async function deletedocente(idDocente){
     }
     return {codigo:'error',descricion:'El docente no fue eliminado  exitosamente'}
 }
-module.exports={getDOCENTE,getdocentes,createdocente,deletedocente}
+async function updatedocente(idDocente,Documento){
+    Documento.push(idDocente);
+    const sql='UPDATE `pgn`.`docente` SET `Documento` = ? WHERE `idestudiante` =?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,    const [resul,]=await conection1.execute(sql,idDocente);
+    );
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'El docente fue actualizado'}
+    }
+    return {codigo:'error',descricion:'El docente no fue actualizado  exitosamente'}
+}
+module.exports={getDOCENTE,getdocentes,createdocente,deletedocente,updatedocente}

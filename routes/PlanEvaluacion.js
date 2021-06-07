@@ -17,4 +17,28 @@ router.get('/',async function(req,res,next){
         next(error);
     }
 });
+router.post('/',async function(req,res,next){
+    try {
+        res.json(await servicios.createPlaEvaluacion(Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.delete('/:idPlanEvaluacion',async function(req,res,next){
+    try {
+        res.json(await servicios.deletePlanEvaluacion([req.params.idPlanEvaluacion]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:idPlanEvaluacion',async function(req,res,next){
+    try {
+        res.json(await servicios.updatePlaEvaluacion(req.params.idPlanEvaluacion,Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;

@@ -30,7 +30,7 @@ async function deletecarrera(idCarrera){
         }
         return {codigo:'error',descricion:'La carrera no fue eliminado  exitosamente'}
 }
-async function updatecarrera(Nombre_Carrera,CantidadSemestre,TotalCredito){
+async function updatecarrera(idCarrera,Nombre_Carrera,CantidadSemestre,TotalCredito){
     Nombre_Carrera.push(idCarrera);
     CantidadSemestre.push(idCarrera);
     TotalCredito.push(idCarrera);

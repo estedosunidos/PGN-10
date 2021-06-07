@@ -30,7 +30,16 @@ async function deleteFranja_horarios(idFranja_Horario){
     }
     return {codigo:'error',descricion:'La franja horaria no fue eliminado  exitosamente'}
 }
-async function updateFranja_horarios(){
-
+async function updateFranja_horarios(HoraInicio,HoraFinal,Dia){
+    HoraInicio.push(idFranja_Horario);
+    HoraFinal.push(idFranja_Horario);
+    Dia.push(idFranja_Horario)
+    const sql='UPDATE `pgn`.`evaluacionestipo` SET `HoraInicio` =?, HoraFinal = ?, Dia=?  WHERE idEvaluacionesTipo = ?';
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,[HoraInicio,HoraFinal,Dia]);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La franja horaria fue actualizado'}
+    }
+    return {codigo:'error',descricion:'La franja horaria  no fue actualizado  exitosamente'}
 }
 module.exports={getFranja_horario,getFranja_horarios,createFranja_horarios,deleteFranja_horarios,updateFranja_horarios}

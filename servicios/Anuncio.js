@@ -31,12 +31,12 @@ async function deleteanuncio(idAnuncio){
  }
  return {codigo:'error',descricion:'El anuncio  no fue eliminado  exitosamente'}
 }
-async function updateanuncio(){
-    area.push(idadministrador);
-    ocupacion.push(idadministrador);
+async function updateanuncio(idAnuncio,Mensaje,Fecha){
+    Mensaje.push(idAnuncio);
+    Fecha.push(idAnuncio);
     const sql='UPDATE `pgn`.`anuncio` SET `Mensaje` = ?, `Fecha` = ? WHERE (`idAnuncio` = ?);'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[area,ocupacion]);
+    const [resul,]=await conection1.execute(sql,[Mensaje,Fecha]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El anuncio fue actualizado'}
     }

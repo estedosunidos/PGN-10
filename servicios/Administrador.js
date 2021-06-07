@@ -32,7 +32,7 @@ async function deleteadministrador(idadministrador){
  }
  return {codigo:'error',descricion:'El administrador  no fue eliminado  exitosamente'}
 }
-async function updateadministrador(){
+async function updateadministrador(idadministrador,area,ocupacion){
     area.push(idadministrador);
     ocupacion.push(idadministrador);
     const sql='UPDATE `pgn`.`administrador` SET `Area` = ?, `Ocupacion` = ? WHERE (`idAdministrador` = ?);'

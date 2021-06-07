@@ -30,7 +30,14 @@ async function deleteEvalueacionestipo(idEvaluacionesTipo){
     }
     return {codigo:'error',descricion:'El evaluacion tipo  no fue eliminado  exitosamente'}
 }
-async function updateEvaluacionestipo(){
-
+async function updateEvaluacionestipo(idEvaluacionesTipo,Descripcion){
+    Descripcion.push(idEvaluacionesTipo);
+    const sql='UPDATE `pgn`.`evaluacionestipo` SET `Descripcion`=?  WHERE idEvaluacionesTipo = ?';
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,Descripcion);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'El evaluacion tipo fue actualizado'}
+    }
+    return {codigo:'error',descricion:'El evaluacion tipo no fue actualizado  exitosamente'}
 }
 module.exports={getidEvaluacionesTipo,getEvaluacionesTipos,createEvalueacionestipo,deleteEvalueacionestipo,updateEvaluacionestipo}
