@@ -34,8 +34,7 @@ async function updatedocente(idDocente,Documento){
     Documento.push(idDocente);
     const sql='UPDATE `pgn`.`docente` SET `Documento` = ? WHERE `idestudiante` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,    const [resul,]=await conection1.execute(sql,idDocente);
-    );
+    const [resul,]=await conection1.execute(sql,idDocente);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El docente fue actualizado'}
     }
