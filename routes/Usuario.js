@@ -17,4 +17,12 @@ router.get('/',async function(req,res,next){
         next(error);
     }
 });
+router.post('/',async function(req,res,next){
+    try {
+        res.json(await servicios.createusuario(req.body));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;
