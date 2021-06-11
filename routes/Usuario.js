@@ -25,4 +25,20 @@ router.post('/',async function(req,res,next){
         next(error);
     }
 });
+router.delete('/',async function(req,res,next){
+    try {
+        res.json(await servicios.deleteusuario(Object.values(req.body)));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.put('/:Documento',async function(req,res,next){
+    try {
+        res.json(await servicios.updatedatousuario(req.params.Documento,req.body));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 module.exports=router;
