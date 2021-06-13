@@ -35,7 +35,7 @@ router.delete('/:idAsistencia',async function(req,res,next){
 });
 router.put('/:idAsistencia',async function(req,res,next){
     try {
-        res.json(await servicios.updateasistencia(req.params.idAsistencia,Object.values(req.body)));
+        res.json(await servicios.updateasistencia(req.params.idAsistencia,req.body.Asistio));
     } catch (error) {
         console.error('error', error.message);
         next(error);

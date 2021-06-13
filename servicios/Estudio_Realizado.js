@@ -31,11 +31,9 @@ async function deleteEstudio_Realizados(idEstudio_Realizado){
     return {codigo:'error',descricion:'El estudio realizado  no fue eliminado  exitosamente'}
 }
 async function updateEstudio_Realizados(idEstudio_Realizado,Grado_Academico,Universidad){
-    Grado_Academico.push(idEstudio_Realizado);
-    Universidad.push(idEstudio_Realizado);
     const sql='UPDATE `pgn`.`estudio realizado` SET `Grado_Academico`,` Universidad`` = ? WHERE `idEstudio_Realizado` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Grado_Academico,Universidad]);
+    const [resul,]=await conection1.execute(sql,[Grado_Academico,Universidad,idEstudio_Realizado]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El estudio realizadol fue actualizado'}
     }

@@ -30,12 +30,10 @@ async function deleteubicacion(idUbicacion){
     }
     return {codigo:'error',descricion:'La ubicacion no fue eliminado  exitosamente'} 
 }
-async function updateubicacion(Capacidad,Direccion){
-    Capacidad.push(idUbicacion);
-    Direccion.push(idUbicacion);
+async function updateubicacion(idUbicacion,Capacidad,Direccion){
     const sql='UPDATE `pgn`.`ubicacion` SET `Capacidad` =?, Direccion = ? WHERE idUbicacion = ?';
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Capacidad,Direccion]);
+    const [resul,]=await conection1.execute(sql,[Capacidad,Direccion,idUbicacion]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La ubicacion fue actualizado'}
     }

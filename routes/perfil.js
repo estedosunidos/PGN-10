@@ -35,7 +35,7 @@ router.delete('/:idperfil',async function(req,res,next){
 });
 router.put('/:idperfil',async function(req,res,next){
     try {
-        res.json(await servicios.updatepefil(req.params.idperfil,Object.values(req.body)));
+        res.json(await servicios.updatepefil(req.params.idperfil,req.body.descricion));
     } catch (error) {
         console.error('error', error.message);
         next(error);

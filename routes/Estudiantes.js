@@ -35,7 +35,7 @@ router.delete('/:idestudiantes',async function(req,res,next){
 });
 router.put('/:idestudiantes',async function(req,res,next){
     try {
-        res.json(await servicio.updateestudiantes(req.params.idEstudiantes,Object.values(req.body)));
+        res.json(await servicio.updateestudiantes(req.params.idEstudiantes,req.body.Semestre));
     } catch (error) {
         console.error('error', error.message);
         next(error);

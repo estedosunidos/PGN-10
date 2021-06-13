@@ -35,7 +35,7 @@ router.delete('/:idEvaluacionesTipor',async function(req,res,next){
 });
 router.put('/:idEvaluacionesTipor',async function(req,res,next){
     try {
-        res.json(await servicios.updateEvaluacionestipo(req.params.idEvaluacionesTipo,Object.values(req.body)));
+        res.json(await servicios.updateEvaluacionestipo(req.params.idEvaluacionesTipo,req.body.Descripcion));
     } catch (error) {
         console.error('error', error.message);
         next(error);

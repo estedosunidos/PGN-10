@@ -35,7 +35,7 @@ router.delete('/:idEstudio_Realizado',async function(req,res,next){
 });
 router.put('/:idEstudio_Realizado',async function(req,res,next){
     try {
-        res.json(await servicios.updateEstudio_Realizados(req.params.idEstudio_Realizado,Object.values(req.body)));
+        res.json(await servicios.updateEstudio_Realizados(req.params.idEstudio_Realizado,req.body.Grado_Academico,rqe.body.Universidad));
     } catch (error) {
         console.error('error', error.message);
         next(error);

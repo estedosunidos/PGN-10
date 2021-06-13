@@ -32,15 +32,9 @@ return {codigo:'error',descricion:'La asignatura no fue eliminado  exitosamente'
 }
 
 async function updateasignatura(idAnuncio,Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido){
-    Nombre_Asignatura.push(idAnuncio);
-    Semestre.push(idAnuncio);
-    Descripcion.push(idAnuncio);
-    Unidad_de_credito.push(idAnuncio);
-    Observacion.push(idAnuncio);
-    Contenido.push(idAnuncio);
     const sql='UPDATE `pgn`.`asignatura` SET `Nombre_Asignatura`=?, `Semestre`=?, `Descripcion`=?, `Unidad_de_credito`=?, `Observacion`=? `Contenido`=? WHERE (`idAnuncio` = ?);'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,]);
+    const [resul,]=await conection1.execute(sql,[Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,idAnuncio]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La asignatura  fue actualizado'}
     }

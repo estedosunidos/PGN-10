@@ -35,7 +35,7 @@ router.delete('/:idPlanEvaluacion',async function(req,res,next){
 });
 router.put('/:idPlanEvaluacion',async function(req,res,next){
     try {
-        res.json(await servicios.updatePlaEvaluacion(req.params.idPlanEvaluacion,Object.values(req.body)));
+        res.json(await servicios.updatePlaEvaluacion(req.params.idPlanEvaluacion,req.body.Descripcion,req.body.FechaInicialProgramada,req.body.FechaFinalProgramada,req.body.Porcentaje));
     } catch (error) {
         console.error('error', error.message);
         next(error);

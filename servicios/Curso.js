@@ -31,10 +31,9 @@ async function deletecurso(idCurso){
     return {codigo:'error',descricion:'El curso no fue eliminado  exitosamente'} 
 }
 async function updatecurso(idCurso,observacion){
-    observacion.push(idCurso);
     const sql='UPDATE `pgn`.`curso` SET `observacion` = ? WHERE `idCurso` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,observacion);
+    const [resul,]=await conection1.execute(sql,[observacion,idCurso]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El curso fue actualizado'}
     }

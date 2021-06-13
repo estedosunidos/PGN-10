@@ -35,7 +35,7 @@ router.delete('/:idFranja_Horario',async function(req,res,next){
 });
 router.put('/:idFranja_Horario',async function(req,res,next){
     try {
-        res.json(await servicios.updateFranja_horarios(req.params.idFranja_Horario,Object.values(req.body)));
+        res.json(await servicios.updateFranja_horarios(req.params.idFranja_Horario,req.body.HoraInicio,req.body.HoraFinal,req.body.Dia));
     } catch (error) {
         console.error('error', error.message);
         next(error);

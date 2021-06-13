@@ -31,10 +31,9 @@ async function deleteperfil(idperfil){
     return {codigo:'error',descricion:'El perfil no fue eliminado  exitosamente'}
 }
 async function updatepefil(idperfil,descricion){
-    descricion.push(idperfil);
     const sql='UPDATE `pgn`.`perfil` SET `descricion` = ? WHERE `idperfil` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,descricion);
+    const [resul,]=await conection1.execute(sql,[descricion,idperfil]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El perfil fue actualizado'}
     }

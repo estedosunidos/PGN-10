@@ -20,6 +20,8 @@ var Franja_HorarioRouter=require('./routes/Franja_Horario');
 var UbicacionRouter=require('./routes/Ubicacion');
 var CarreraRouter=require('./routes/Carrera');
 var Estudio_RealizadoRouter=require('./routes/Estudio_Realizado');
+var LoginRouter=require('./routes/login');
+var FotoRouter=require('./routes/foto');
 
 var app = express();
 
@@ -49,6 +51,8 @@ app.use('/administrador',AdministradorRouter);
 app.use('/docente',DocenteRouter);
 app.use('/estudiantes',EstudiantesRouter);
 app.use('/usuario',UsuarioRouter);
+app.use('/login',LoginRouter);
+app.use('/foto',FotoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

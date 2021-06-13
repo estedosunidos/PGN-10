@@ -30,14 +30,10 @@ async function deletePlanEvaluacion(idPlanEvaluacion){
     }
     return {codigo:'error',descricion:'El plan de evaluacion  no fue eliminado  exitosamente'} 
 }
-async function updatePlaEvaluacion(){
-    Descripcion.push(idPlanEvaluacion);
-    FechaInicialProgramada.push(idPlanEvaluacion);
-    FechaFinalProgramada.push(idPlanEvaluacion);
-    Porcentaje.push(idPlanEvaluacion);
+async function updatePlaEvaluacion(idPlanEvaluacion,Descripcion,FechaInicialProgramada,FechaFinalProgramada,Porcentaje){
     const sql='UPDATE `pgn`.`planevaluacion` SET `Descripcion`=?,`FechaInicialProgramada`=?,`FechaFinalProgramada`=?,`Porcentaje`=? WHERE idUbicacion = ?';
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Descripcion,FechaInicialProgramada,FechaFinalProgramada,Porcentaje]);
+    const [resul,]=await conection1.execute(sql,[Descripcion,FechaInicialProgramada,FechaFinalProgramada,Porcentaje,idPlanEvaluacion]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El plan de evaluacion fue actualizado'}
     }

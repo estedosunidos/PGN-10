@@ -30,12 +30,10 @@ async function deletenotas(idNotas){
     }
     return {codigo:'error',descricion:'La nota no fue eliminado  exitosamente'} 
 }
-async function updatenotas(Obsevacion,Calificacion){
-    Obsevacion.push(idNotas);
-    Calificacion.push(idNotas);
+async function updatenotas(idNotas,Obsevacion,Calificacion){
     const sql='UPDATE `pgn`.`notas` SET `Observacion` =?, Calificacion = ? WHERE idNotas = ?';
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Obsevacion,Calificacion]);
+    const [resul,]=await conection1.execute(sql,[Obsevacion,Calificacion,idNotas]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La nota fue actualizado'}
     }

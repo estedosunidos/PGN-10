@@ -25,7 +25,7 @@ router.post('/',async function(req,res,next){
         next(error);
     }
 });
-router.delete('/:idAdministrado',async function(req,res,next){
+router.delete('/:idAdministrador',async function(req,res,next){
     try {
         res.json(await servicios.deleteadministrador([req.params.idAdministrador]));
     } catch (error) {
@@ -33,9 +33,9 @@ router.delete('/:idAdministrado',async function(req,res,next){
         next(error);
     }
 });
-router.put('/:idAdministrado',async function(req,res,next){
+router.put('/:idAdministrador',async function(req,res,next){
     try {
-        res.json(await servicios.updateadministrador(req.params.idAdministrador,Object.values(req.body)));
+        res.json(await servicios.updateadministrador(req.params.idAdministrador,req.body.Nombre_Asignatura,req.body.Semestre,req.body.Descripcion,req.body.Unidad_de_credito,req.body.Observacion));
     } catch (error) {
         console.error('error', error.message);
         next(error);

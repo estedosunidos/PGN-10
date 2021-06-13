@@ -35,7 +35,7 @@ router.delete('/:idCarrera',async function(req,res,next){
 });
 router.put('/:idCarrera',async function(req,res,next){
     try {
-        res.json(await servicios.updatecarrera(req.params.idCarrera,Object.values(req.body)));
+        res.json(await servicios.updatecarrera(req.params.idCarrera,req.body.Nombre_Carrera,req.body.CantidadSemestre,req.body.TotalCredito));
     } catch (error) {
         console.error('error', error.message);
         next(error);

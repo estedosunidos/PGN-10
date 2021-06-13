@@ -31,12 +31,9 @@ async function deletecarrera(idCarrera){
         return {codigo:'error',descricion:'La carrera no fue eliminado  exitosamente'}
 }
 async function updatecarrera(idCarrera,Nombre_Carrera,CantidadSemestre,TotalCredito){
-    Nombre_Carrera.push(idCarrera);
-    CantidadSemestre.push(idCarrera);
-    TotalCredito.push(idCarrera);
     const sql='UPDATE `pgn`.`carrera` SET `Nombre_Carrera`,`CantidadSemestre`,`TotalCredito` = ? WHERE `idCarrera` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Nombre_Carrera,CantidadSemestre,TotalCredito]);
+    const [resul,]=await conection1.execute(sql,[Nombre_Carrera,CantidadSemestre,TotalCredito,idCarrera]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La carrera fue actualizado'}
     }

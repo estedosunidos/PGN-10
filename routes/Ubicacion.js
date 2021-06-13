@@ -35,7 +35,7 @@ router.delete('/:idUbicacion',async function(req,res,next){
 });
 router.put('/:idUbicacion',async function(req,res,next){
     try {
-        res.json(await servicios.updateubicacion(req.params.idUbicacion,Object.values(req.body)));
+        res.json(await servicios.updateubicacion(req.params.idUbicacion,req.body.Capacidad,req.body.Direccion));
     } catch (error) {
         console.error('error', error.message);
         next(error);
