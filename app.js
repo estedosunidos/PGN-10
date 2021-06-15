@@ -22,6 +22,7 @@ var CarreraRouter=require('./routes/Carrera');
 var Estudio_RealizadoRouter=require('./routes/Estudio_Realizado');
 var LoginRouter=require('./routes/login');
 var FotoRouter=require('./routes/foto');
+var AnuncioRouter=require('./routes/Anuncio');
 
 var app = express();
 
@@ -39,7 +40,7 @@ app.use('/', indexRouter);
 app.use('/perfil', perfilRouter);
 app.use('/curso',  CursoRouter);
 app.use('/asignatura',AsignaturaRouter);
-app.use('/estudioreal',Estudio_RealizadoRouter);
+app.use('/estudiorealizado',Estudio_RealizadoRouter);
 app.use('/carrera',CarreraRouter);
 app.use('/ubicacion',UbicacionRouter);
 app.use('/franjahorario',Franja_HorarioRouter);
@@ -53,6 +54,7 @@ app.use('/estudiantes',EstudiantesRouter);
 app.use('/usuario',UsuarioRouter);
 app.use('/login',LoginRouter);
 app.use('/foto',FotoRouter);
+app.use('/anuncio',AnuncioRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

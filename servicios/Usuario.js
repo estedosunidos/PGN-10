@@ -1,6 +1,7 @@
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 const encripto=require('../utilidades/encriptacion');
+//funciona
 async function getusuario(Documento){
     const sql='SELECT * FROM pgn.usuario where Documento=?'
     const conectin1=await mysql2.createConnection(conection.db);
@@ -11,12 +12,14 @@ async function getusuario(Documento){
     }
     return resul
 }
+//funciona
 async function getusuarios(){
     const sql='SELECT * FROM pgn.usuario '
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+//funciona
 async function createusuario(datosusuario){
     if('Contraseña' in datosusuario){
        datosusuario['Contraseña']=encripto.encripaes(datosusuario['Contraseña']);
@@ -29,8 +32,9 @@ async function createusuario(datosusuario){
     }
     return {codigo:'error',descricion:' El usuario no fue creado exitosamente'}
 }
+//funciona
 async function deleteusuario(Documento){
-    const sql='DELETE FROM `pgn`.`usuario`` WHERE `Documento` = ?'
+    const sql='DELETE FROM `pgn`.`usuario` WHERE `Documento` = ?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,Documento);
     if(resul.affectedRows){
@@ -38,6 +42,7 @@ async function deleteusuario(Documento){
     }
     return {codigo:'error',descricion:'El usuario  no fue eliminado  exitosamente'} 
 }
+//funciona
 async function  updateusuariofoto(documento,foto) {
     const sql='UPDATE `pgn`.`usuario` SET `Foto` =? WHERE  `Documento` = ?';
     const conection1=await  mysql2.createConnection(conection.db);
@@ -47,6 +52,7 @@ async function  updateusuariofoto(documento,foto) {
     }
     return {codigo:'error',descricion:'La foto no fue actualizado  exitosamente'}
 }
+//funciona
 async function updatedatousuario(documento,datosusuario){
     datosusuario=Object.values(datosusuario);
     datosusuario.push(documento);

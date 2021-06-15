@@ -1,17 +1,20 @@
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
+//funciona
 async function getcurso(idCurso){
     const sql='SELECT * FROM pgn.curso where idCurso=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idCurso);
     return resul
 }
+//funciona
 async function getcursos(){
     const sql='SELECT * FROM pgn.curso'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+//funciona
 async function createcurso(Observaciones){
     const sql='INSERT INTO `pgn`.`curso` (`Observaciones`) VALUES (?)'
     const conection1=await mysql2.createConnection(conection.db);
@@ -21,8 +24,9 @@ async function createcurso(Observaciones){
     }
     return {codigo:'error',descricion:'El curso no fue creado exitosamente'}
 }
+//no funciona
 async function deletecurso(idCurso){
-    const sql='DELETE FROM `pgn`.`curso`` WHERE `idCurso` = ?'
+    const sql='DELETE FROM `pgn`.`curso` WHERE `idCurso` = ?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idCurso);
     if(resul.affectedRows){
@@ -30,6 +34,7 @@ async function deletecurso(idCurso){
     }
     return {codigo:'error',descricion:'El curso no fue eliminado  exitosamente'} 
 }
+// no funciona
 async function updatecurso(idCurso,observacion){
     const sql='UPDATE `pgn`.`curso` SET `observacion` = ? WHERE `idCurso` =?'
     const conection1=await  mysql2.createConnection(conection.db);

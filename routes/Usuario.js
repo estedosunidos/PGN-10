@@ -25,9 +25,9 @@ router.post('/',async function(req,res,next){
         next(error);
     }
 });
-router.delete('/',async function(req,res,next){
+router.delete('/:Documento',async function(req,res,next){
     try {
-        res.json(await servicios.deleteusuario(Object.values(req.body)));
+        res.json(await servicios.deleteusuario([req.params.Documento]));
     } catch (error) {
         console.error('error', error.message);
         next(error);

@@ -1,17 +1,20 @@
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
+//funciona
 async function getDOCENTE(idDocente){
     const sql='SELECT * FROM pgn.docente where idDocente=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idDocente);
     return resul
 }
+//funciona
 async function getdocentes(){
     const sql='SELECT * FROM pgn.docente'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+//funciona
 async function createdocente(idDocente){
     const sql='INSERT INTO `pgn`.`docente` (`Documento `)  VALUES (?)'
     const conection1=await mysql2.createConnection(conection.db);
@@ -21,6 +24,7 @@ async function createdocente(idDocente){
     }
     return {codigo:'error',descricion:'El docente no fue creado exitosamente'}
 }
+//funciona
 async function deletedocente(idDocente){
     const sql='DELETE FROM `pgn`.`docente` WHERE `idDocente` = ?'
     const conection1=await  mysql2.createConnection(conection.db);
@@ -30,6 +34,7 @@ async function deletedocente(idDocente){
     }
     return {codigo:'error',descricion:'El docente no fue eliminado  exitosamente'}
 }
+//no funciona
 async function updatedocente(idDocente,Documento){
     const sql='UPDATE `pgn`.`docente` SET `Documento` = ? WHERE `idestudiante` =?'
     const conection1=await  mysql2.createConnection(conection.db);

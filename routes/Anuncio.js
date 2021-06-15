@@ -35,7 +35,7 @@ router.delete('/:idAnuncio',async function(req,res,next){
 });
 router.put('/:idAnuncio',async function(req,res,next){
     try {
-        res.json(await servicios.updateanuncio(req.params.idAnuncio,req.body.Mensaje,req.body.Fecha));
+        res.json(await servicios.updateanuncio(req.body.Mensaje,req.body.Fecha));
     } catch (error) {
         console.error('error', error.message);
         next(error);

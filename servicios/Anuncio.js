@@ -1,19 +1,21 @@
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
-//const { connect } = require('../routes/Administrador');
+//funciona
 async function getanucio(idAnuncio){
     const sql='SELECT * FROM pgn.anuncio where idAnuncio=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idAnuncio);
     return resul
 }
+//funciona
 async function getanucios(){
     const sql='SELECT * FROM pgn.anuncio'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-async function createanuncio(){
+//funciona
+async function createanuncio(idAnuncio){
     const sql='INSERT INTO `pgn`.`anuncio` (`Mensaje`, `Fecha`) VALUES (?,?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idAnuncio);
@@ -22,6 +24,7 @@ async function createanuncio(){
     }
     return {codigo:'error',descricion:'El anuncio no fue creado exitosamente'}
 }
+//funciona
 async function deleteanuncio(idAnuncio){
     const sql='DELETE FROM `pgn`.`anuncio` WHERE `idAnuncio`= ?'
     const conection1=await mysql2.createConnection(conection.db);
@@ -31,10 +34,11 @@ async function deleteanuncio(idAnuncio){
  }
  return {codigo:'error',descricion:'El anuncio  no fue eliminado  exitosamente'}
 }
-async function updateanuncio(idAnuncio,Mensaje,Fecha){
+//no funciona
+async function updateanuncio(Mensaje,Fecha){
     const sql='UPDATE `pgn`.`anuncio` SET `Mensaje` = ?, `Fecha` = ? WHERE (`idAnuncio` = ?);'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Mensaje,Fecha,idAnuncio]);
+    const [resul,]=await conection1.execute(sql,[Mensaje,Fecha]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El anuncio fue actualizado'}
     }

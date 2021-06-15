@@ -4,6 +4,7 @@ const encripto=require('../utilidades/encriptacion');
 async function autenticacion(){
     
 }
+//funciona
 async function updatedcambiopassword(contrasena,documento){
     if('Contraseña' in contrasena){
         contrasena['Contraseña']=encripto.encripaes(contrasena['Contraseña']);
