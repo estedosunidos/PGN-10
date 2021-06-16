@@ -34,7 +34,7 @@ async function deleteadministrador(idadministrador){
  }
  return {codigo:'error',descricion:'El administrador  no fue eliminado  exitosamente'}
 }
-//no funciona
+// funciona
 async function updateadministrador(idadministrador,area,ocupacion){
     const sql='UPDATE `pgn`.`administrador` SET `Area` = ?, `Ocupacion` = ? WHERE `idAdministrador` = ?'
     const conection1=await  mysql2.createConnection(conection.db);

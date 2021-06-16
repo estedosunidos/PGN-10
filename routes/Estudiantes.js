@@ -27,7 +27,7 @@ router.post('/',async function(req,res,next){
 });
 router.delete('/:idestudiantes',async function(req,res,next){
     try {
-        res.json(await servicios.deleteestudiantes([req.params.idEstudiantes]));
+        res.json(await servicios.deleteestudiantes([req.params.idestudiantes]));
     } catch (error) {
         console.error('error', error.message);
         next(error);
@@ -35,7 +35,7 @@ router.delete('/:idestudiantes',async function(req,res,next){
 });
 router.put('/:idestudiantes',async function(req,res,next){
     try {
-        res.json(await servicio.updateestudiantes(req.params.idEstudiantes,req.body.Semestre));
+        res.json(await servicios.updateestudiantes(req.params.idestudiantes,req.body.Semestre));
     } catch (error) {
         console.error('error', error.message);
         next(error);

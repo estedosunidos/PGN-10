@@ -16,7 +16,7 @@ async function getdocentes(){
 }
 //funciona
 async function createdocente(idDocente){
-    const sql='INSERT INTO `pgn`.`docente` (`Documento `)  VALUES (?)'
+    const sql='INSERT INTO `pgn`.`docente` (`Documento`)  VALUES (?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idDocente);
     if(resul.affectedRows){
@@ -34,9 +34,9 @@ async function deletedocente(idDocente){
     }
     return {codigo:'error',descricion:'El docente no fue eliminado  exitosamente'}
 }
-//no funciona
+//funciona
 async function updatedocente(idDocente,Documento){
-    const sql='UPDATE `pgn`.`docente` SET `Documento` = ? WHERE `idestudiante` =?'
+    const sql='UPDATE `pgn`.`docente` SET `Documento` = ? WHERE `idDocente` =?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,[Documento,idDocente]);
     if(resul.affectedRows){

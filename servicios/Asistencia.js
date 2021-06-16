@@ -33,11 +33,11 @@ async function createasistencia(idAsistencia){
         }
         return {codigo:'error',descricion:'La asistencia  no fue eliminado  exitosamente'}
 }
-// no funciona
-async function updateasistencia(idperfil,Asistio){
+//  funciona
+async function updateasistencia(idAsistencia,Asistio){
     const sql='UPDATE `pgn`.`asistencia` SET `Asistio` = ? WHERE `idAsistencia` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Asistio,idperfil]);
+    const [resul,]=await conection1.execute(sql,[Asistio,idAsistencia]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La asistencia fue actualizado'}
     }

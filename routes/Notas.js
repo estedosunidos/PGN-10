@@ -35,7 +35,7 @@ router.delete('/:idNotas',async function(req,res,next){
 });
 router.put('/:idNotas',async function(req,res,next){
     try {
-        res.json(await servicios.updatenotas(req.params.idNotas,req.body.Obsevacion,req.body.Calificacion));
+        res.json(await servicios.updatenotas(req.params.idNotas,req.body.Observacion,req.body.Calificacion));
     } catch (error) {
         console.error('error', error.message);
         next(error);

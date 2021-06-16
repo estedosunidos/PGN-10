@@ -35,7 +35,7 @@ router.delete('/:idAsignatura',async function(req,res,next){
 });
 router.put('/:idAsignatura',async function(req,res,next){
     try {
-        res.json(await servicios.updateasignatura(req.params.idAsignatura,req.body.Nombre_Asignatura,req.body.Semestre,req.body.Descripcion,req.body.Unidad_de_credito,req.body.Observacion));
+        res.json(await servicios.updateasignatura(req.params.idAsignatura,req.body.Nombre_Asignatura,req.body.Semestre,req.body.Descripcion,req.body.Unidad_de_credito,req.body.Observacion,req.body.Contenido));
     } catch (error) {
         console.error('error', error.message);
         next(error);

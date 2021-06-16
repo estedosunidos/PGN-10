@@ -22,7 +22,7 @@ async function createnotas(idNotas){
     return {codigo:'error',descricion:'La notas no fue creado exitosamente'}
 }
 async function deletenotas(idNotas){
-    const sql='DELETE FROM `pgn`.`notas`` WHERE `idNotas` = ?'
+    const sql='DELETE FROM `pgn`.`notas` WHERE `idNotas` = ?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idNotas);
     if(resul.affectedRows){
@@ -30,10 +30,10 @@ async function deletenotas(idNotas){
     }
     return {codigo:'error',descricion:'La nota no fue eliminado  exitosamente'} 
 }
-async function updatenotas(idNotas,Obsevacion,Calificacion){
+async function updatenotas(idNotas,Observacion,Calificacion){
     const sql='UPDATE `pgn`.`notas` SET `Observacion` =?, Calificacion = ? WHERE idNotas = ?';
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Obsevacion,Calificacion,idNotas]);
+    const [resul,]=await conection1.execute(sql,[Observacion,Calificacion,idNotas]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La nota fue actualizado'}
     }

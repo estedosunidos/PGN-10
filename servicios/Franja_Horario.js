@@ -31,7 +31,7 @@ async function deleteFranja_horarios(idFranja_Horario){
     return {codigo:'error',descricion:'La franja horaria no fue eliminado  exitosamente'}
 }
 async function updateFranja_horarios(idFranja_Horario,HoraInicio,HoraFinal,Dia){
-    const sql='UPDATE `pgn`.`evaluacionestipo` SET `HoraInicio` =?, HoraFinal = ?, Dia=?  WHERE idFranja_Horario = ?';
+    const sql='UPDATE `pgn`.`franja_horario` SET `HoraInicio` =?, HoraFinal = ?, Dia=?  WHERE idFranja_Horario = ?';
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,[HoraInicio,HoraFinal,Dia,idFranja_Horario]);
     if(resul.affectedRows){

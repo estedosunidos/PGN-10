@@ -24,9 +24,9 @@ async function creteestudiantes(idestudiante){
     }
     return {codigo:'error',descricion:'El estudiante no fue creado exitosamente'}
 }
-//no funciona
+//funciona
 async function deleteestudiantes(idestudiante){
-    const sql='DELETE FROM `pgn`.`estudiantes` WHERE `idestudiante` = ?'
+    const sql='DELETE FROM `pgn`.`estudiantes` WHERE `idEstudiantes` = ?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idestudiante);
     if(resul.affectedRows){
@@ -34,14 +34,14 @@ async function deleteestudiantes(idestudiante){
     }
     return {codigo:'error',descricion:'El estudiante no fue eliminado  exitosamente'}
 }
-// no funciona
+// funciona
 async function updateestudiantes(idestudiante,Semestre){
-    const sql='UPDATE `pgn`.`estudiantes` SET `Semestre` = ? WHERE `idestudiante` =?'
+    const sql='UPDATE `pgn`.`estudiantes` SET `Semestre` = ? WHERE `idEstudiantes` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[idestudiante,Semestre]);
+    const [resul,]=await conection1.execute(sql,[Semestre,idestudiante]);
     if(resul.affectedRows){
-        return {codigo:'ok',descricion:'El perfil fue actualizado'}
+        return {codigo:'ok',descricion:'El estudiantes fue actualizado'}
     }
-    return {codigo:'error',descricion:'El perfil no fue actualizado  exitosamente'}
+    return {codigo:'error',descricion:'El estudiantes no fue actualizado  exitosamente'}
 }
 module.exports={getestudiante,getestudiantes,creteestudiantes,deleteestudiantes,updateestudiantes}

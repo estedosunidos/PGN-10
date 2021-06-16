@@ -35,10 +35,10 @@ async function deleteanuncio(idAnuncio){
  return {codigo:'error',descricion:'El anuncio  no fue eliminado  exitosamente'}
 }
 //no funciona
-async function updateanuncio(Mensaje,Fecha){
+async function updateanuncio(idAnuncio,Mensaje,Fecha){
     const sql='UPDATE `pgn`.`anuncio` SET `Mensaje` = ?, `Fecha` = ? WHERE (`idAnuncio` = ?);'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Mensaje,Fecha]);
+    const [resul,]=await conection1.execute(sql,[Mensaje,Fecha,idAnuncio]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El anuncio fue actualizado'}
     }

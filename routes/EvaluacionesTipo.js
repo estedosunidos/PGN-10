@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const servicios=require('../servicios/EvaluacionesTipo');
-router.get('/:idEvaluacionesTipor',async function(req,res,next){
+router.get('/:idEvaluacionesTipo',async function(req,res,next){
     try {
         res.json(await servicios.getEvaluacionesTipo([req.params.idEvaluacionesTipo]));
     } catch (error) {
@@ -25,7 +25,7 @@ router.post('/',async function(req,res,next){
         next(error);
     }
 });
-router.delete('/:idEvaluacionesTipor',async function(req,res,next){
+router.delete('/:idEvaluacionesTipo',async function(req,res,next){
     try {
         res.json(await servicios.deleteEvalueacionestipo([req.params.idEvaluacionesTipo]));
     } catch (error) {
@@ -33,7 +33,7 @@ router.delete('/:idEvaluacionesTipor',async function(req,res,next){
         next(error);
     }
 });
-router.put('/:idEvaluacionesTipor',async function(req,res,next){
+router.put('/:idEvaluacionesTipo',async function(req,res,next){
     try {
         res.json(await servicios.updateEvaluacionestipo(req.params.idEvaluacionesTipo,req.body.Descripcion));
     } catch (error) {

@@ -35,10 +35,10 @@ async function deleteasignatura(idAsignatura){
 return {codigo:'error',descricion:'La asignatura no fue eliminado  exitosamente'}
 }
 //no funciona
-async function updateasignatura(idAnuncio,Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido){
-    const sql='UPDATE `pgn`.`asignatura` SET `Nombre_Asignatura`=?, `Semestre`=?, `Descripcion`=?, `Unidad_de_credito`=?, `Observacion`=? `Contenido`=? WHERE (`idAnuncio` = ?);'
+async function updateasignatura(idAsignatura,Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido){
+    const sql='UPDATE `pgn`.`asignatura` SET `Nombre_Asignatura`=?, `Semestre`=?, `Descripcion`=?, `Unidad_de_credito`=?, `Observacion`=? ,`Contenido`=? WHERE (`idAnuncio` = ?);'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,idAnuncio]);
+    const [resul,]=await conection1.execute(sql,[Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido,idAsignatura]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La asignatura  fue actualizado'}
     }

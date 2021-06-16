@@ -35,7 +35,7 @@ router.delete('/:idCurso',async function(req,res,next){
 });
 router.put('/:idCurso',async function(req,res,next){
     try {
-        res.json(await servicios.updatecurso(req.params.idCurso,req.body.observacion));
+        res.json(await servicios.updatecurso(req.params.idCurso,req.body.Observacion));
     } catch (error) {
         console.error('error', error.message);
         next(error);
