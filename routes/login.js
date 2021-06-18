@@ -17,12 +17,12 @@ router.put('/logout/:Documento',async function(req,res,next){
         next(error);
     }
 });
-router.get('/login/:Documento',async function(req,res,next){
+router.get('/login',async function(req,res,next){
     try {
-        res.json(await servicios.login(req.params.Documento));
+        res.json(servicios.autenticacion(req.body.Nombre_de_Usuario,req.body.Contraseña));
     } catch (error) {
         console.error('error', error.message);
-        next(error);
+       next(error);
     }
 });
 module.exports=router;

@@ -15,10 +15,10 @@ async function getanucios(){
     return resul
 }
 //funciona
-async function createanuncio(idAnuncio){
-    const sql='INSERT INTO `pgn`.`anuncio` (`Mensaje`, `Fecha`) VALUES (?,?)'
+async function createanuncio(datomensaje){
+    const sql='INSERT INTO `pgn`.`anuncio` (`Mensaje`, `IdCurso`) VALUES (?,?)'
     const conection1=await mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,idAnuncio);
+    const [resul,]=await conection1.execute(sql,datomensaje);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El anuncio fue creado'}
     }
@@ -34,11 +34,11 @@ async function deleteanuncio(idAnuncio){
  }
  return {codigo:'error',descricion:'El anuncio  no fue eliminado  exitosamente'}
 }
-//no funciona
-async function updateanuncio(idAnuncio,Mensaje,Fecha){
-    const sql='UPDATE `pgn`.`anuncio` SET `Mensaje` = ?, `Fecha` = ? WHERE (`idAnuncio` = ?);'
+//funciona
+async function updateanuncio(idAnuncio,Mensaje){
+    const sql='UPDATE `pgn`.`anuncio` SET `Mensaje` = ? WHERE (`idAnuncio` = ?);'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Mensaje,Fecha,idAnuncio]);
+    const [resul,]=await conection1.execute(sql,[Mensaje,idAnuncio]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El anuncio fue actualizado'}
     }
