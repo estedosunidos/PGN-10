@@ -2,8 +2,22 @@ const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 const encripto=require('../utilidades/encriptacion');
 const token=require('../utilidades/autenticacion');
-function autenticacion(nombe_usuario,contrasena){
-    return token.creaciontoken(nombe_usuario)
+async function autenticacion(nombre_usuario,contrasena){
+    let Documento;
+    let password;
+    let  usuario={token:''};
+    const sql='select Documento,Contraseña from usuario where Nombre_de_Usuario =?';
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,[nombre_usuario]);
+    if(resul.length>0){
+        Documento=resul[0]['Documento'];
+        password=resul[0]['Contraseña'];
+        password=encripto.descripaes(password);
+        if((password == contrasena )&& (await openseccion(Documento)).codigo == 'ok'){
+            usuario['token']=token.creaciontoken(nombre_usuario)
+        }
+    }
+    return usuario
 }
 //funciona
 async function updatedcambiopassword(contrasena,documento){
@@ -40,7 +54,5 @@ async function openseccion(Documento){
     }
     return {codigo:'error',descricion:' EL usuario intendo entra al sistema'}
 }
-async function login(nombre_usuario,contrasena){
-    //await openseccion(Documento);
-}
-module.exports={autenticacion,updatedcambiopassword,cierreseccion,openseccion,login}
+
+module.exports={autenticacion,updatedcambiopassword,cierreseccion,openseccion}
