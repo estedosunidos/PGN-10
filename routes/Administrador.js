@@ -1,5 +1,6 @@
 const express=require('express');
 const router=express.Router();
+lldld;
 const servicios=require('../servicios/Administrador');
 const auteticacion=require('../utilidades/autenticacion');
 router.get('/:idAdministrador',async function(req,res,next){
