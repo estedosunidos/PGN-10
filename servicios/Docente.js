@@ -5,6 +5,10 @@ async function getDOCENTE(idDocente){
     const sql='SELECT * FROM pgn.docente where idDocente=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idDocente);
+    if(resul.length>0){
+        resul[0]['Grado_Academico']= await returndocente(resul[0]['idDocente']);
+        resul[0]['Universidad']= await returndocente(resul[0]['idDocente']);
+    }
     return resul
 }
 //funciona
@@ -12,6 +16,13 @@ async function getdocentes(){
     const sql='SELECT * FROM pgn.docente'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
+    return resul
+}
+//funciona
+async function returndocente(idDocente){
+    const sql='SELECT do.* FROM pgn.estudio realizado es join pgn.docente do on es.idDocente=do.idDocente where do.idDocente=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,[idDocente]);
     return resul
 }
 //funciona

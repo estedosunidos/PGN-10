@@ -40,8 +40,6 @@ async function asociarcarrera(carrera,idestudiante){
     }else{
         return {codigo:'error',descricion:'No se pudo asociar la carrera al estudiante'}
     }
-
-    
 }
 //funciona
 async function creteestudiantes(estudiante){
