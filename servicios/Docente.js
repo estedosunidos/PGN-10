@@ -11,6 +11,7 @@ async function getDOCENTE(idDocente){
     }
     return resul
 }
+
 //funciona
 async function getdocentes(){
     const sql='SELECT * FROM pgn.docente'
