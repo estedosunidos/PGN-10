@@ -2,11 +2,15 @@ const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 //funciona
 async function getestudiante(idestudiante){
-    const sql='SELECT * FROM pgn.estudiantes where idestudiante=?'
+    const sql='SELECT * FROM pgn.estudiantes where idEstudiantes=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idestudiante);
+    if(resul.length>0){
+        resul[0]['Carreras']= await returncarrera(resul[0]['idEstudiantes']);
+    }
     return resul
 }
+//funciona
 async function getestudiantepordocumento(documento){
     const sql='SELECT * FROM pgn.estudiantes where Documento=?'
     const conectin1=await mysql2.createConnection(conection.db);
@@ -20,6 +24,13 @@ async function getestudiantes(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+async function returncarrera(idestudiante){
+    const sql='SELECT ca.* FROM pgn.carrera_estudiante ce join pgn.carrera ca on ce.IdCarrera=ca.IdCarrera where ce.IdEstudiante=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,[idestudiante]);
+    return resul
+}
+//funciona
 async function asociarcarrera(carrera,idestudiante){
     const sql='INSERT INTO `pgn`.`carrera_estudiante` (`IdCarrera`,`IdEstudiante`) VALUES (?,?)'
     const conection1=await mysql2.createConnection(conection.db);

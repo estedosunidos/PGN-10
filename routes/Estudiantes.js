@@ -8,7 +8,7 @@ router.get('/:idestudiantes',async function(req,res,next){
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.getestudiante([req.params.idEstudiantes]));
+        res.json(await servicios.getestudiante([req.params.idestudiantes]));
     } catch (error) {
         console.error('error', error.message);
         next(error);

@@ -1,6 +1,7 @@
 const jwt = require('jwt-simple');
 const moment=require('moment');
 const configuracion=require('../confi/token');
+//funciona
 const creaciontoken =(nombre_usuario)=>{
     const payload={
         sub:nombre_usuario,
@@ -9,6 +10,7 @@ const creaciontoken =(nombre_usuario)=>{
     }
     return jwt.encode(payload,configuracion.TOKEN_SECRET)
 };
+//funciona
 const validaciontoken=(autorizacion)=>{
     let retorno={
         codigo:0,
