@@ -4,7 +4,6 @@ const encripto=require('../utilidades/encriptacion');
 const token=require('../utilidades/autenticacion');
 const perfil=require('../servicios/perfil');
 async function autenticacion(nombre_usuario,contrasena){
-    let Documento;
     let password;
     let perfil1;
     let foto;
@@ -13,10 +12,10 @@ async function autenticacion(nombre_usuario,contrasena){
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,[nombre_usuario]);
     if(resul.length>0){
-        Documento=resul[0]['Documento'];
+        usuario['Documento']=resul[0]['Documento'];
         password=resul[0]['Contraseña'];
         password=encripto.descripaes(password);
-        if((password == contrasena )&& (await openseccion(Documento)).codigo == 'ok'){
+        if((password == contrasena )&& (await openseccion( usuario['Documento'])).codigo == 'ok'){
             usuario['token']=token.creaciontoken(nombre_usuario)
         }
         usuario['Nombre']=resul[0]['Nombre'];

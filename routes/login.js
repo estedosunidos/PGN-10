@@ -22,7 +22,7 @@ router.put('/logout/:Documento',async function(req,res,next){
         next(error);
     }
 });
-router.get('/login',async function(req,res,next){
+router.post('/login',async function(req,res,next){
     try {
        res.json(await servicios.autenticacion(req.body.Nombre_de_Usuario,req.body.Contraseña));
     } catch (error) {

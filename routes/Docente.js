@@ -32,7 +32,7 @@ router.post('/',async function(req,res,next){
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.createdocente(Object.values(req.body)));
+        res.json(await servicios.createdocente(req.body));
     } catch (error) {
         console.error('error', error.message);
         next(error);

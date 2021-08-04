@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var  cors =require('cors');
 
 var perfilRouter = require('./routes/perfil');
 var UsuarioRouter = require('./routes/Usuario');
@@ -19,7 +19,6 @@ var PlanEvaluacionRouter=require('./routes/PlanEvaluacion');
 var Franja_HorarioRouter=require('./routes/Franja_Horario');
 var UbicacionRouter=require('./routes/Ubicacion');
 var CarreraRouter=require('./routes/Carrera');
-var Estudio_RealizadoRouter=require('./routes/Estudio_Realizado');
 var LoginRouter=require('./routes/login');
 var FotoRouter=require('./routes/foto');
 var AnuncioRouter=require('./routes/Anuncio');
@@ -32,6 +31,7 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,7 +40,6 @@ app.use('/', LoginRouter);
 app.use('/perfil', perfilRouter);
 app.use('/curso',  CursoRouter);
 app.use('/asignatura',AsignaturaRouter);
-app.use('/estudiorealizado',Estudio_RealizadoRouter);
 app.use('/carrera',CarreraRouter);
 app.use('/ubicacion',UbicacionRouter);
 app.use('/franjahorario',Franja_HorarioRouter);
