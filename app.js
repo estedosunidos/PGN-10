@@ -22,7 +22,10 @@ var CarreraRouter=require('./routes/Carrera');
 var LoginRouter=require('./routes/login');
 var FotoRouter=require('./routes/foto');
 var AnuncioRouter=require('./routes/Anuncio');
-
+var EstudioRealizadoRouter=require('./routes/EstudiosRealizados')
+var asignaturadocenteRouter=require("./routes/AsignaturaDocente")
+var carreraEstudiantesRouter=require("./routes/CarreraEstudiante")
+var asignatucarreraRouter = require("./routes/AsignaturaCarrera")
 var app = express();
 
 // view engine setup
@@ -53,7 +56,10 @@ app.use('/estudiantes',EstudiantesRouter);
 app.use('/usuario',UsuarioRouter);
 app.use('/foto',FotoRouter);
 app.use('/anuncio',AnuncioRouter);
-
+app.use('/estudiosrealizados',EstudioRealizadoRouter)
+app.use('/asignaturadocente',asignaturadocenteRouter)
+app.use('/carreraestudiante',carreraEstudiantesRouter)
+app.use("/asignaturacarrera",asignatucarreraRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

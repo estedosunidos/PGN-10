@@ -56,7 +56,7 @@ router.put('/:idCarrera',async function(req,res,next){
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.updatecarrera(req.params.idCarrera,req.body.Nombre_Carrera,req.body.CantidadSemestre,req.body.TotalCredito));
+        res.json(await servicios.updatecarrera(req.params.idCarrera,req.body.Nombre_Carrera,req.body.CantidadSemestre,req.body.TotalCredito,req.body.idAdministrador));
     } catch (error) {
         console.error('error', error.message);
         next(error);

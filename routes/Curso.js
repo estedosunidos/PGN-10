@@ -1,5 +1,6 @@
 const express=require('express');
 const router=express.Router();
+const servicios=require('../servicios/Curso');
 const auteticacion=require('../utilidades/autenticacion');
 router.get('/:idCurso',async function(req,res,next){
     try {
@@ -55,7 +56,7 @@ router.put('/:idCurso',async function(req,res,next){
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.updatecurso(req.params.idCurso,req.body.Observacion));
+        res.json(await servicios.updatecurso(req.params.idCurso,req.body.Grupo,req.body.idAsignatura,req.body.IdDocente));
     } catch (error) {
         console.error('error', error.message);
         next(error);

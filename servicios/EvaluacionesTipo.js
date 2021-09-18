@@ -1,13 +1,13 @@
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 async function getidEvaluacionesTipo(idEvaluacionesTipo){
-    const sql='SELECT * FROM pgn.evaluacionestipo where idEvaluacionesTipo=?'
+    const sql='SELECT idEvaluacionesTipo Id , Descripcion FROM pgn.evaluacionestipo where idEvaluacionesTipo=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idEvaluacionesTipo);
     return resul
 }
 async function getEvaluacionesTipos(){
-    const sql='SELECT * FROM pgn.evaluacionestipo'
+    const sql='SELECT `idEvaluacionesTipo` Id , Descripcion FROM pgn.evaluacionestipo'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
@@ -31,6 +31,7 @@ async function deleteEvalueacionestipo(idEvaluacionesTipo){
     return {codigo:'error',descricion:'El evaluacion tipo  no fue eliminado  exitosamente'}
 }
 async function updateEvaluacionestipo(idEvaluacionesTipo,Descripcion){
+    console.tipo(idEvaluacionesTipo )
     const sql='UPDATE `pgn`.`evaluacionestipo` SET `Descripcion`=?  WHERE idEvaluacionesTipo = ?';
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,[Descripcion,idEvaluacionesTipo]);

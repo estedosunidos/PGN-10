@@ -16,7 +16,7 @@ router.get('/:idperfil',async function(req,res,next){
 });
 router.get('/',async function(req,res,next){
     try {
-        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+       const validacion=auteticacion.validaciontoken(req.headers.authorization);
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }

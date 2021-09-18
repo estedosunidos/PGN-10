@@ -1,32 +1,46 @@
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
+const asignaturadocente = require('../servicios/AsignaturaDocente')
 //funciona
 async function getDOCENTE(idDocente){
-    const sql='SELECT * FROM pgn.docente where idDocente=?'
+    const sql='SELECT do.*,us.Nombre,us.Apellido,us.Nombre_de_Usuario FROM pgn.docente do inner join pgn.usuario us on do.Documento=us.Documento where idDocente=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idDocente);
     if(resul.length>0){
-        console.log(await returndocente(resul[0]['idDocente']))
         resul[0]['EstudiosRealizados']= await returndocente(resul[0]['idDocente']);
+        resul[0]['AsignaturaDocente']= await returnasignaturas(resul[0]['idDocente']);
     }
     return resul
 }
 async function docentedocumento(Documento){
-    const sql='SELECT * FROM pgn.docente where Documento=?'
+    const sql='SELECT do.*,us.Nombre,us.Apellido,us.Nombre_de_Usuario FROM pgn.docente do inner join pgn.usuario us on do.Documento=us.Documento where do.Documento=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,[Documento]);
     return resul
 }
+
 //funciona
 async function getdocentes(){
-    const sql='SELECT * FROM pgn.docente'
+    const sql='SELECT do.*, us.Nombre,us.Apellido,us.Nombre_de_Usuario FROM pgn.docente do inner join pgn.usuario us on do.Documento=us.Documento'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+async function getdocentesbyasigantura(IdAsignatura){
+    const sql='select doc.idDocente Id, us.Nombre,us.Apellido,us.Documento from pgn.docenteasignatura doasig  inner join  pgn.docente doc  on doasig.IdDocente=doc.idDocente inner join pgn.usuario us on doc.Documento = us.Documento where doasig.idAsignatura=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,IdAsignatura);
+    return resul
+}
 //funciona
 async function returndocente(idDocente){
-    const sql='SELECT * FROM  pgn.estudio_realizado er  where er.idDocente=?'
+    const sql='SELECT idEstudio_Realizado Id, Grado_Academico "Grado Academico",Universidad FROM  pgn.estudio_realizado er  where er.idDocente=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,[idDocente]);
+    return resul
+}
+async function returnasignaturas(idDocente){
+    const sql='SELECT doasig.idDocenteAsignatura Id, asig.Nombre_Asignatura "Nombre Asignatura" FROM  pgn.asignatura asig inner join pgn.docenteasignatura doasig on doasig.IdAsignatura=asig.IdAsignatura where doasig.IdDocente =?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,[idDocente]);
     return resul
@@ -84,4 +98,4 @@ async function updatedocente(idDocente,Documento){
     }
     return {codigo:'error',descricion:'El docente no fue actualizado  exitosamente'}
 }
-module.exports={getDOCENTE,getdocentes,createdocente,deletedocente,updatedocente}
+module.exports={getDOCENTE,getdocentes,createdocente,deletedocente,updatedocente,getdocentesbyasigantura}

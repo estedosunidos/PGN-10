@@ -9,14 +9,15 @@ async function getasignatura(idAsignatura){
 }
 //funciona
 async function getasignaturas(){
-    const sql='SELECT * FROM pgn.asignatura'
+    const sql='SELECT `idAsignatura` Id,`Nombre_Asignatura` Asignatura , `Semestre`, `Descripcion`, `Unidad_de_credito` Creditos, `Observacion`, `Contenido` FROM pgn.asignatura'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
 //funciona
 async function createasignatura(asignatura){
-    const sql='INSERT INTO `pgn`.`asignatura` (`Nombre_Asignatura`, `Semestre`, `Descripcion`, `Unidad_de_credito`, `Observacion`, `Contenido`,`idAdministrador`) VALUES (?,?,?,?,?,?,?)'
+    console.log(asignatura)
+    const sql='INSERT INTO `pgn`.`asignatura` (`Nombre_Asignatura`, `Semestre`, `Descripcion`, `Unidad_de_credito`, `Observacion`, `Contenido`,`idAdministrador`,`FechaActualizacion`) VALUES (?,?,?,?,?,?,?,current_TIMESTAMP())'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,asignatura);
     if(resul.affectedRows){
@@ -34,11 +35,11 @@ async function deleteasignatura(idAsignatura){
 }
 return {codigo:'error',descricion:'La asignatura no fue eliminado  exitosamente'}
 }
-//no funciona
-async function updateasignatura(idAsignatura,Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido){
-    const sql='UPDATE `pgn`.`asignatura` SET `Nombre_Asignatura`=?, `Semestre`=?, `Descripcion`=?, `Unidad_de_credito`=?, `Observacion`=? ,`Contenido`=? WHERE (`idAnuncio` = ?);'
+// funciona
+async function updateasignatura(idAsignatura,Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido,idAdministrador){
+    const sql='UPDATE `pgn`.`asignatura` SET `Nombre_Asignatura`=?, `Semestre`=?, `Descripcion`=?, `Unidad_de_credito`=?, `Observacion`=? ,`Contenido`=? ,`FechaActualizacion`=current_TIMESTAMP(),`idAdministrador`=? WHERE `idAsignatura` = ?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido,idAsignatura]);
+    const [resul,]=await conection1.execute(sql,[Nombre_Asignatura,Semestre,Descripcion,Unidad_de_credito,Observacion,Contenido,idAdministrador,idAsignatura]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La asignatura  fue actualizado'}
     }

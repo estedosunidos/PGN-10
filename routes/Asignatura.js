@@ -56,7 +56,7 @@ router.put('/:idAsignatura',async function(req,res,next){
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.updateasignatura(req.params.idAsignatura,req.body.Nombre_Asignatura,req.body.Semestre,req.body.Descripcion,req.body.Unidad_de_credito,req.body.Observacion,req.body.Contenido));
+        res.json(await servicios.updateasignatura(req.params.idAsignatura,req.body.Nombre_Asignatura,req.body.Semestre,req.body.Descripcion,req.body.Unidad_de_credito,req.body.Observacion,req.body.Contenido,req.body.idAdministrador));
     } catch (error) {
         console.error('error', error.message);
         next(error);

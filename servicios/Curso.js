@@ -9,16 +9,17 @@ async function getcurso(idCurso){
 }
 //funciona
 async function getcursos(){
-    const sql='SELECT * FROM pgn.curso'
+    const sql='select cu.IdCurso Id,cu.Grupo,asig.Nombre_Asignatura Asignatura ,trim(concat(us.Nombre," " ,us.Apellido)) Docente from pgn.curso cu inner join pgn.asignatura asig on cu.idAsignatura =asig.idAsignatura inner join pgn.docente doc on cu.idDocente=doc.idDocente  inner join pgn.usuario us on us.Documento = doc.Documento '
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
 //funciona
-async function createcurso(Observaciones){
-    const sql='INSERT INTO `pgn`.`curso` (`Observacion`) VALUES (?)'
+async function createcurso(idCurso){
+    console.log(idCurso)
+    const sql='INSERT INTO `pgn`.`curso` (`Grupo`,`idAsignatura`,`IdDocente`) VALUES (?,?,?)'
     const conection1=await mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,Observaciones);
+    const [resul,]=await conection1.execute(sql,idCurso);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El curso fue creado'}
     }
@@ -35,10 +36,10 @@ async function deletecurso(idCurso){
     return {codigo:'error',descricion:'El curso no fue eliminado  exitosamente'} 
 }
 //funciona
-async function updatecurso(idCurso,observacion){
-    const sql='UPDATE `pgn`.`curso` SET `Observacion` = ? WHERE `idCurso` =?'
+async function updatecurso(idCurso,Grupo,idAsignatura,IdDocente){
+    const sql='UPDATE `pgn`.`curso` SET `Grupo` = ?,`idAsignatura` = ?,`IdDocente` = ? WHERE `idCurso` =?'
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[observacion,idCurso]);
+    const [resul,]=await conection1.execute(sql,[Grupo,idAsignatura,IdDocente,idCurso]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'El curso fue actualizado'}
     }

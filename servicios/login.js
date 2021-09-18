@@ -2,29 +2,39 @@ const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 const encripto=require('../utilidades/encriptacion');
 const token=require('../utilidades/autenticacion');
+const usuario1=require("../servicios/Usuario")
 const perfil=require('../servicios/perfil');
+const administrador=require('../servicios/Administrador')
 async function autenticacion(nombre_usuario,contrasena){
     let password;
     let perfil1;
     let foto;
+    let administrador1;
     let  usuario={token:''};
-    const sql='select Documento,Contraseña,Nombre,Apellido,idperfil,Foto from usuario where Nombre_de_Usuario =?';
-    const conection1=await mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[nombre_usuario]);
-    if(resul.length>0){
-        usuario['Documento']=resul[0]['Documento'];
-        password=resul[0]['Contraseña'];
+    let  seccion 
+    let usuario2=await usuario1.getusuariobynombreusuario(nombre_usuario)
+    if(usuario2.length>0){
+        usuario['Documento']=usuario2[0]['Documento'];
+        password=usuario2[0]['Contraseña'];
         password=encripto.descripaes(password);
-        if((password == contrasena )&& (await openseccion( usuario['Documento'])).codigo == 'ok'){
+        seccion=await openseccion( usuario['Documento'])
+        if((password == contrasena )&& (seccion.codigo==='ok')){
             usuario['token']=token.creaciontoken(nombre_usuario)
-        }
-        usuario['Nombre']=resul[0]['Nombre'];
-        usuario['Apellido']=resul[0]['Apellido'];
-        perfil1=resul[0]['idperfil']
+       }
+        console.log(usuario['token'])
+        usuario['Nombre']=usuario2[0]['Nombre'];
+        usuario['Apellido']=usuario2[0]['Apellido'];
+        perfil1=usuario2[0]['idperfil']
         Perfil2= await perfil.getperfil([perfil1])
+        if(Perfil2[0].idperfil==2){
+            administrador1=await administrador.getadministradorbydocumento(usuario['Documento'])
+            if(administrador1.length>0){
+                Perfil2[0]["idAdministrador"] =administrador1[0]["idAdministrador"]
+            }
+        }
         usuario['Perfil']=Perfil2[0]
-        foto=resul[0]['Foto'];
-        usuario['foto']=foto;
+        //foto=usuario2[0]['Foto'];
+        //usuario['foto']=foto;
     }
     return usuario
 }

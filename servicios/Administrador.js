@@ -7,9 +7,15 @@ async function getadministrador(idadministrador){
     const [resul,]=await conectin1.execute(sql,idadministrador);
     return resul
 }
+async function getadministradorbydocumento(documento){
+    const sql='SELECT * FROM pgn.administrador where documento=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conectin1.execute(sql,[documento]);
+    return resul
+}
 //funciona
 async function getadministradores(){
-    const sql='SELECT * FROM pgn.administrador'
+    const sql='SELECT ad.*,us.Nombre,us.Apellido,us.Nombre_de_Usuario FROM pgn.administrador ad inner join pgn.usuario  us on  ad.Documento = us.Documento'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
@@ -44,4 +50,4 @@ async function updateadministrador(idadministrador,area,ocupacion){
     }
     return {codigo:'error',descricion:'El administrador no fue actualizado  exitosamente'}
 }
-module.exports={getadministrador,getadministradores,createadministrador,deleteadministrador,updateadministrador}
+module.exports={getadministrador,getadministradores,createadministrador,deleteadministrador,updateadministrador,getadministradorbydocumento}

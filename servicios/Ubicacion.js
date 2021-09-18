@@ -26,7 +26,7 @@ async function createubicacion(idUbicacion){
 }
 //no funciona
 async function deleteubicacion(idUbicacion){
-    const sql='DELETE FROM `pgn`.`ubicacion`` WHERE `idUbicacion` = ?'
+    const sql='DELETE FROM `pgn`.`ubicacion` WHERE `idUbicacion` = ?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idUbicacion);
     if(resul.affectedRows){

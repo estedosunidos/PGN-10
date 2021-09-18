@@ -2,7 +2,7 @@ const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 //funciona
 async function getestudiante(idestudiante){
-    const sql='SELECT * FROM pgn.estudiantes where idEstudiantes=?'
+    const sql='SELECT es.*,us.Nombre,us.Apellido,us.Nombre_de_Usuario  FROM pgn.estudiantes es inner join pgn.usuario us on  es.Documento = us.Documento  where es.idEstudiantes=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,idestudiante);
     if(resul.length>0){
@@ -19,13 +19,13 @@ async function getestudiantepordocumento(documento){
 }
 //funciona
 async function getestudiantes(){
-    const sql='SELECT * FROM pgn.estudiantes'
+    const sql='SELECT es.*,us.Nombre,us.Apellido,us.Nombre_de_Usuario FROM pgn.estudiantes es inner join pgn.usuario  us on  es.Documento = us.Documento'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
 async function returncarrera(idestudiante){
-    const sql='SELECT ca.* FROM pgn.carrera_estudiante ce join pgn.carrera ca on ce.IdCarrera=ca.IdCarrera where ce.IdEstudiante=?'
+    const sql='SELECT ce.idCarrera_Estudiante Id, ca.Nombre_Carrera "Nombre Carrera"  FROM pgn.carrera_estudiante ce inner join pgn.carrera ca on ce.IdCarrera=ca.IdCarrera where ce.IdEstudiante=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,[idestudiante]);
     return resul
@@ -84,4 +84,4 @@ async function updateestudiantes(idestudiante,Semestre){
     }
     return {codigo:'error',descricion:'El estudiantes no fue actualizado  exitosamente'}
 }
-module.exports={getestudiante,getestudiantes,creteestudiantes,deleteestudiantes,updateestudiantes}
+module.exports={getestudiante,getestudiantes,creteestudiantes,deleteestudiantes,updateestudiantes,}
