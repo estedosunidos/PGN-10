@@ -12,8 +12,14 @@ async function getFranja_horarios(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+async function retunFranjasbycurso(Id){
+    const sql="select  fah.idFranja_Horario Id,ub.Direccion Ubicacion , date_format(fah.HoraInicio,'%H:%i') `Hora Inicio` , date_format(fah.HoraFinal,'%H:%i') `Hora Fin`,fah.Dia  from pgn.franja_horario fah inner join pgn.ubicacion ub on fah.idUbicacion = ub.idUbicacion  where IdCurso= ?"
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,Id);
+    return resul
+}
 async function createFranja_horarios(idFranja_Horario){
-    const sql='INSERT INTO `pgn`.`franja_horario` (`HoraInicio`, `HoraFinal`, `Dia`) VALUES (?,?,?)'
+    const sql='INSERT INTO `pgn`.`franja_horario` (`HoraInicio`, `HoraFinal`, `Dia`,`idUbicacion`,`IdCurso`) VALUES (?,?,?,?,?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idFranja_Horario);
     if(resul.affectedRows){
@@ -30,13 +36,14 @@ async function deleteFranja_horarios(idFranja_Horario){
     }
     return {codigo:'error',descricion:'La franja horaria no fue eliminado  exitosamente'}
 }
-async function updateFranja_horarios(idFranja_Horario,HoraInicio,HoraFinal,Dia){
-    const sql='UPDATE `pgn`.`franja_horario` SET `HoraInicio` =?, HoraFinal = ?, Dia=?  WHERE idFranja_Horario = ?';
+async function updateFranja_horarios(idFranja_Horario,HoraInicio,HoraFinal,Dia,idUbicacion,IdCurso){
+    console.log(idFranja_Horario,HoraInicio,HoraFinal,Dia,idUbicacion,IdCurso)
+    const sql='UPDATE `pgn`.`franja_horario` SET `HoraInicio` =?, HoraFinal = ?, Dia=? ,idUbicacion=?,IdCurso=? WHERE idFranja_Horario = ?';
     const conection1=await  mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,[HoraInicio,HoraFinal,Dia,idFranja_Horario]);
+    const [resul,]=await conection1.execute(sql,[HoraInicio,HoraFinal,Dia,idUbicacion,IdCurso,idFranja_Horario]);
     if(resul.affectedRows){
         return {codigo:'ok',descricion:'La franja horaria fue actualizado'}
     }
     return {codigo:'error',descricion:'La franja horaria  no fue actualizado  exitosamente'}
 }
-module.exports={getFranja_horario,getFranja_horarios,createFranja_horarios,deleteFranja_horarios,updateFranja_horarios}
+module.exports={getFranja_horario,getFranja_horarios,createFranja_horarios,deleteFranja_horarios,updateFranja_horarios,retunFranjasbycurso}

@@ -6,9 +6,21 @@ router.get('/:idFranja_Horario',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);
         if(validacion.codigo!=0){
-            return res.status(validacion.codigo).json(validacion)
+           return res.status(validacion.codigo).json(validacion)
+       }
+        res.json(await servicios.getFranja_horario([req.params.idFranja_Horario]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.get('/curso/:IdCurso',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+    if(validacion.codigo!=0){
+          return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.getFranja_Horario([req.params.idFranja_Horario]));
+        res.json(await servicios.retunFranjasbycurso([req.params.IdCurso]));
     } catch (error) {
         console.error('error', error.message);
         next(error);
@@ -56,7 +68,7 @@ router.put('/:idFranja_Horario',async function(req,res,next){
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.updateFranja_horarios(req.params.idFranja_Horario,req.body.HoraInicio,req.body.HoraFinal,req.body.Dia));
+        res.json(await servicios.updateFranja_horarios(req.params.idFranja_Horario,req.body.HoraInicio,req.body.HoraFinal,req.body.Dia,req.body.idUbicacion,req.body.IdCurso));
     } catch (error) {
         console.error('error', error.message);
         next(error);

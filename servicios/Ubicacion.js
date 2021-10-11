@@ -9,7 +9,7 @@ async function getubicaion(idUbicacion){
 }
 //funciona
 async function getubicaiones(){
-    const sql='SELECT * FROM pgn.ubicacion'
+    const sql='SELECT idUbicacion Id,Capacidad,Direccion Ubicacion FROM pgn.ubicacion'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul

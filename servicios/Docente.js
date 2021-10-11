@@ -18,6 +18,48 @@ async function docentedocumento(Documento){
     const [resul,]=await conectin1.execute(sql,[Documento]);
     return resul
 }
+async function docentebydocumento(Documento){
+    const docente = await docentedocumento(Documento) 
+    let docente1
+    if (docente.length>0){
+      docente1= await getDOCENTE([docente[0]["idDocente"]])
+    }
+    return docente1
+}
+async function getAsignaturaDocenteCorte(){
+    const sql='SELECT 	Idasignaturadocentecorte,IdAsignaturaDocente ,IdCorte,	Promedio FROM pgn.AsignaturaDocenteCorte'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,);
+    return resul
+}
+async function deleteAsignaturaDocenteCorte(Idasignaturadocentecorte){
+    const sql='DELETE FROM `pgn`.`AsignaturaDocenteCorte` WHERE `Idasignaturadocentecorte` = ?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,Idasignaturadocentecorte);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La asignatura docente corte  fue eliminado'}
+    }
+    return {codigo:'error',descricion:'La asignatura docente corte  no fue eliminado  exitosamente'}
+}
+async function UpdateAsignaturaDocenteCorte(Idasignaturadocentecorte,IdAsignaturaDocente,IdCorte,	Promedio){
+    const sql='UPDATE `pgn`.`AsignaturaDocenteCorte` SET `IdAsignaturaDocente` = ? ,IdCorte=? ,Promedio=? WHERE `Idasignaturadocentecorte` =?'
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,[IdAsignaturaDocente,IdCorte,Promedio,Idasignaturadocentecorte]);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'La asignatura docente corte fue actualizado'}
+    }
+    return {codigo:'error',descricion:'La asignatura docente corte no fue actualizado  exitosamente'}
+}
+async function InsertAsignaturaDocenteCorte(IdAsignaturaDocente,IdCorte,Promedio){
+    const sql='INSERT INTO pgn.AsignaturaDocenteCorte (IdAsignaturaDocente,IdCorte,Promedio) VALUES (?,?,?)'
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,[IdAsignaturaDocente,IdCorte,Promedio]);
+    if(resul.affectedRows){
+        return {codigo:'ok',descricion:'se asocio el estudio del docente'}
+    }else{
+        return {codigo:'error',descricion:'No se pudo asociar el estudio del docente'}
+    }
+}
 
 //funciona
 async function getdocentes(){
@@ -98,4 +140,4 @@ async function updatedocente(idDocente,Documento){
     }
     return {codigo:'error',descricion:'El docente no fue actualizado  exitosamente'}
 }
-module.exports={getDOCENTE,getdocentes,createdocente,deletedocente,updatedocente,getdocentesbyasigantura}
+module.exports={getDOCENTE,getdocentes,createdocente,deletedocente,updatedocente,getdocentesbyasigantura,docentebydocumento,getAsignaturaDocenteCorte,deleteAsignaturaDocenteCorte,UpdateAsignaturaDocenteCorte,InsertAsignaturaDocenteCorte}

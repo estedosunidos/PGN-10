@@ -25,6 +25,12 @@ async function createcurso(idCurso){
     }
     return {codigo:'error',descricion:'El curso no fue creado exitosamente'}
 }
+async function returnGrupo(idAsignatura){
+    const sql="select cu.IdCurso Id,cu.Grupo  from pgn.curso cu where idAsignatura=? "
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,idAsignatura);
+    return resul
+}
 //funciona
 async function deletecurso(idCurso){
     const sql='DELETE FROM `pgn`.`curso` WHERE `idCurso` = ?'
@@ -35,8 +41,15 @@ async function deletecurso(idCurso){
     }
     return {codigo:'error',descricion:'El curso no fue eliminado  exitosamente'} 
 }
+async function retrunbydocenteasignatura(DocenteAsignatura){
+    const sql="select cu.IdCurso Id,cu.Grupo from pgn.docenteasignatura doceasig inner join pgn.curso cu on doceasig.IdDocente = cu.IdDocente and doceasig.IdAsignatura= cu.idAsignatura where doceasig.idDocenteAsignatura=?"
+    const conection1=await  mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,DocenteAsignatura);
+    return resul
+}
 //funciona
 async function updatecurso(idCurso,Grupo,idAsignatura,IdDocente){
+    console.log(idCurso,Grupo,idAsignatura,IdDocente)
     const sql='UPDATE `pgn`.`curso` SET `Grupo` = ?,`idAsignatura` = ?,`IdDocente` = ? WHERE `idCurso` =?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,[Grupo,idAsignatura,IdDocente,idCurso]);
@@ -45,4 +58,4 @@ async function updatecurso(idCurso,Grupo,idAsignatura,IdDocente){
     }
     return {codigo:'error',descricion:'El curso no fue actualizado  exitosamente'}
 }
-module.exports={getcurso,getcursos,createcurso,deletecurso,updatecurso}
+module.exports={getcurso,getcursos,createcurso,deletecurso,updatecurso,returnGrupo,retrunbydocenteasignatura}

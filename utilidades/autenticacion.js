@@ -6,7 +6,7 @@ const creaciontoken =(nombre_usuario)=>{
     const payload={
         sub:nombre_usuario,
         iat:moment().unix(),
-        exp:moment().add(3,'days').unix()
+        exp:moment().add(120,'day').unix()
     }
     return jwt.encode(payload,configuracion.TOKEN_SECRET)
 };

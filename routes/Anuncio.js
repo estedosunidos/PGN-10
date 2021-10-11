@@ -14,6 +14,43 @@ router.get('/:idAnuncio',async function(req,res,next){
         next(error);
     }
 });
+router.get('/anuncioporestudiante/:IdEstudiante',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.retornaranunciobyestudiante([req.params.IdEstudiante]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+
+})
+router.post('/anuncioporestudiante',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.createanuncioleido(req.body));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+})
+router.get('/curso/:IdCurso',async function(req,res,next){
+    try{
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+           return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.retornaranuncionbygrupo([req.params.IdCurso]))
+    } catch (error){
+        console.error('error', error.message);
+        next(error);
+    }
+})
 router.get('/',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);

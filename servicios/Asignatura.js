@@ -14,6 +14,7 @@ async function getasignaturas(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+
 //funciona
 async function createasignatura(asignatura){
     console.log(asignatura)

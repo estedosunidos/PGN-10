@@ -14,12 +14,24 @@ router.get('/:idDocente',async function(req,res,next){
         next(error);
     }
 });
-router.get('/asignatura/:idAsignatura',async function(req,res,next){
+router.get('/documento/:Documento',async function(req,res,next){
     try {
         //const validacion=auteticacion.validaciontoken(req.headers.authorization);
         //if(validacion.codigo!=0){
           //  return res.status(validacion.codigo).json(validacion)
         //}
+        res.json(await servicios.docentebydocumento(req.params.Documento));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.get('/asignatura/:idAsignatura',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
         res.json(await servicios.getdocentesbyasigantura([req.params.idAsignatura]));
     } catch (error) {
         console.error('error', error.message);

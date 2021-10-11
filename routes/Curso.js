@@ -14,6 +14,31 @@ router.get('/:idCurso',async function(req,res,next){
         next(error);
     }
 });
+router.get('/docenteasignatura/:iddocenteasignatura',async function(req,res,next){
+    try {
+        //const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        //if(validacion.codigo!=0){
+          //return res.status(validacion.codigo).json(validacion)
+        //}
+        res.json(await servicios.retrunbydocenteasignatura([req.params.iddocenteasignatura]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+
+})
+router.get('/asignatura/:idAsignatura',async function(req,res,next){
+    try {
+        //const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        //if(validacion.codigo!=0){
+          //  return res.status(validacion.codigo).json(validacion)
+        //}
+        res.json(await servicios.returnGrupo([req.params.idAsignatura]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 router.get('/',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);
