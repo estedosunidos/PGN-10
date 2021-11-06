@@ -27,6 +27,7 @@ var asignaturadocenteRouter=require("./routes/AsignaturaDocente")
 var carreraEstudiantesRouter=require("./routes/CarreraEstudiante")
 var asignatucarreraRouter = require("./routes/AsignaturaCarrera")
 var corteRouter=require("./routes/corte")
+var PeriodoRouter=require("./routes/Periodos")
 var app = express();
 
 // view engine setup
@@ -62,6 +63,7 @@ app.use('/asignaturadocente',asignaturadocenteRouter)
 app.use('/carreraestudiante',carreraEstudiantesRouter)
 app.use("/asignaturacarrera",asignatucarreraRouter)
 app.use("/corte",corteRouter)
+app.use("/periodo",PeriodoRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

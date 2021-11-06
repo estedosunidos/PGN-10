@@ -7,6 +7,13 @@ async function getasignatura(idAsignatura){
     const [resul,]=await conectin1.execute(sql,idAsignatura);
     return resul
 }
+async function returnasignaturabyestudiante(idestudiante){
+    const sql="SELECT cuest.idCurso_Estudiante,asig.Nombre_Asignatura FROM pgn.curso_estudiante cuest INNER JOIN pgn.curso cu ON cuest.IdCurso=cu.IdCurso INNER JOIN pgn.asignatura asig on cu.idAsignatura=asig.idAsignatura where cuest.IdEstudiante=?"
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conectin1.execute(sql,idestudiante);
+    return resul
+
+}
 //funciona
 async function getasignaturas(){
     const sql='SELECT `idAsignatura` Id,`Nombre_Asignatura` Asignatura , `Semestre`, `Descripcion`, `Unidad_de_credito` Creditos, `Observacion`, `Contenido` FROM pgn.asignatura'
@@ -46,4 +53,4 @@ async function updateasignatura(idAsignatura,Nombre_Asignatura,Semestre,Descripc
     }
     return {codigo:'error',descricion:'La asignatura  no fue actualizado  exitosamente'}
 }
-module.exports={getasignatura,getasignaturas,createasignatura,deleteasignatura,updateasignatura}
+module.exports={getasignatura,getasignaturas,createasignatura,deleteasignatura,updateasignatura,returnasignaturabyestudiante}

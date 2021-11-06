@@ -17,6 +17,14 @@ async function getestudiantepordocumento(documento){
     const [resul,]=await conectin1.execute(sql,[documento]);
     return resul
 }
+async function estudiantebydocumento(Documento){
+    const estudiante=await getestudiantepordocumento(Documento)
+    let estudiante1
+    if (estudiante.length>0){
+        estudiante1=await getestudiante([estudiante[0]['idEstudiantes']])
+    }
+    return estudiante1
+}
 //funciona
 async function getestudiantes(){
     const sql='SELECT es.*,us.Nombre,us.Apellido,us.Nombre_de_Usuario FROM pgn.estudiantes es inner join pgn.usuario  us on  es.Documento = us.Documento'
@@ -84,4 +92,4 @@ async function updateestudiantes(idestudiante,Semestre){
     }
     return {codigo:'error',descricion:'El estudiantes no fue actualizado  exitosamente'}
 }
-module.exports={getestudiante,getestudiantes,creteestudiantes,deleteestudiantes,updateestudiantes,}
+module.exports={getestudiante,getestudiantes,creteestudiantes,deleteestudiantes,updateestudiantes,estudiantebydocumento}

@@ -17,6 +17,16 @@ async function getcarreras(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+async function getcarrerabyestudiante(IdCarrera){
+    const sql='SELECT * FROM pgn.carrera ca inner join pgn.carrera_estudiante caest on ca.idCarrera=caest.IdCarrera where idCarrera_Estudiante=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conectin1.execute(sql,IdCarrera);
+    if(resul.length>0){
+        resul[0]['AsignaturaCarrera']= await returnasignaturas(resul[0]['idCarrera']);
+    }
+    return resul
+
+}
 //funciona
 async function creatcarrera(idCarrera){
     const sql='INSERT INTO `pgn`.`carrera` (`Nombre_Carrera`,`CantidadSemestre`,`TotalCredito`,`idAdministrador`) VALUES (?,?,?,?)'
@@ -53,4 +63,4 @@ async function updatecarrera(idCarrera,Nombre_Carrera,CantidadSemestre,TotalCred
     }
     return {codigo:'error',descricion:'La carrera  no fue actualizado  exitosamente'}
 }
-module.exports={getcarrera,getcarreras,creatcarrera,deletecarrera,updatecarrera,returnasignaturas}
+module.exports={getcarrera,getcarreras,creatcarrera,deletecarrera,updatecarrera,returnasignaturas,getcarrerabyestudiante}

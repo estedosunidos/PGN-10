@@ -12,6 +12,12 @@ async function getcorte(IdCorte){
     const [resul,]=await conectin1.execute(sql,[IdCorte]);
     return resul
 }
+async function returncortebyasignatura(IdAsignaturadocentecorte){
+    const sql='SELECT co.IdCorte Id,co.Descripcion Corte,nvl(adc.Pocentaje,0) Porcentaje from pgn.corte co left join pgn.asignaturadocentecorte adc on co.IdCorte=adc.IdCorte and adc.IdAsignaturaDocente=?'
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conectin1.execute(sql,[IdAsignaturadocentecorte])
+    return resul
+}
 async function createcorte(corte){
     const sql='insert into pgn.corte (Descripcion) values (?)'
     const conectin1=await mysql2.createConnection(conection.db);
@@ -40,4 +46,4 @@ async function updatecorte(IdCorte,Descripcion){
         return {codigo:'error',descricion:'El corte no fue actualizado exitosamente'}
 
 }
-module.exports ={updatecorte,deletecorte,createcorte,getcorte,getcortes}
+module.exports ={updatecorte,deletecorte,createcorte,getcorte,getcortes,returncortebyasignatura}

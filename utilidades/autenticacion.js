@@ -16,7 +16,7 @@ const validaciontoken=(autorizacion)=>{
         codigo:0,
         mensaje:''
     }
-    if(!autorizacion){
+    /*if(!autorizacion){
         retorno.codigo=403;
         retorno.mensaje='la peticion no tiene la cabeza de la autorizacion';
         return retorno
@@ -28,6 +28,7 @@ const validaciontoken=(autorizacion)=>{
         retorno.mensaje='el token es incorrecto';
         return retorno 
     }
+    */
     return retorno
 };
 module.exports={creaciontoken,validaciontoken}
