@@ -64,7 +64,7 @@ async function createcortebyasignatura(asignaturadocentecorte){
 }
 async function getAsignaturaDocenteCorte(IdAsignaturaDocente){
 
-    const sql='SELECT * FROM pgn.AsignaturaDocenteCorte where Idasignaturadocentecorte=?'
+    const sql='SELECT adc.Idasignaturadocentecorte,co.Descripcion FROM pgn.AsignaturaDocenteCorte adc INNER JOIN pgn.corte co on adc.IdCorte=co.IdCorte where IdAsignaturaDocente=?'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,[IdAsignaturaDocente]);
     return resul

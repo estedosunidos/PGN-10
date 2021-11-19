@@ -15,7 +15,6 @@ async function getcursos(){
     return resul
 }
 async function returnasignaturbyidasinaturacarrera(idasignaturacarrera){
-    console.log(idasignaturacarrera)
     const sql="SELECT cu.IdCurso ,cu.Grupo,us.Nombre,us.Apellido FROM pgn.docenteasignatura asigcar INNER JOIN pgn.asignatura asig on asigcar.IdAsignatura=asig.idAsignatura INNER Join pgn.curso cu on asig.idAsignatura=cu.idAsignatura INNER JOIN pgn.docente doc on cu.IdDocente = doc.idDocente INNER JOIN pgn.usuario us on doc.Documento =us.Documento where asigcar.iddocenteasignatura=?"
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ] =await conectin1.execute(sql,idasignaturacarrera)
@@ -38,17 +37,6 @@ async function returnfranjasbycurs(asignatura_carrera){
     const [resul, ]=await conectin1.execute(sql,asignatura_carrera);
     return resul
 }
-/*async function returnasignaturbyidasinaturacarrera(idasignaturacarrera){
-    const sql="SELECT cu.IdCurso ,cu.Grupo,us.Nombre,us.Apellido FROM pgn.asignatura_carrera asigcar INNER JOIN pgn.asignatura asig on asigcar.IdAsignatura=asig.idAsignatura INNER Join pgn.curso cu on asig.idAsignatura=cu.idAsignatura INNER JOIN pgn.docente doc on cu.IdDocente = doc.idDocente INNER JOIN pgn.usuario us on doc.Documento =us.Documento where asigcar.idAsignatura_Carrera=?"
-    const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ] =await conectin1.execute(sql,idasignaturacarrera)
-    for (let curso of resul){
-        let franjas= await returnfranjasbycurs([curso["IdCurso"]])
-        curso['Franjas']=franjas
-    }
-
-    return resul
-}*/
 async function returnasignaturbyidasinaturacarrerayidestudiante(idcarreraestudiante){
     const sql="SELECT A.IdCurso, B.Grupo, F.Nombre, F.Apellido, G.Nombre_Asignatura ,A.idCurso_Estudiante FROM PGN.CURSO_ESTUDIANTE A INNER JOIN PGN.CURSO B ON (A.IDCURSO = B.IDCURSO) INNER JOIN PGN.CARRERA_ESTUDIANTE D ON (A.IDCARRERAESTUDIANTE = D.IDCARRERA_ESTUDIANTE) INNER JOIN PGN.DOCENTE E ON (B.IDDOCENTE = E.IDDOCENTE) INNER JOIN PGN.USUARIO F ON (E.DOCUMENTO = F.DOCUMENTO) INNER JOIN PGN.ASIGNATURA G ON (B.IDASIGNATURA = G.IDASIGNATURA) WHERE A.IDCARRERAESTUDIANTE = ?"
     const conectin1=await mysql2.createConnection(conection.db);

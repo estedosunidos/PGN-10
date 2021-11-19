@@ -14,6 +14,12 @@ async function returnasignaturabyestudiante(idestudiante){
     return resul
 
 }
+async function findAsignaturaByCursoEstudiante(idCursoEstudiante) {
+    const sql = "SELECT C.IDASIGNATURA Id, C.NOMBRE_ASIGNATURA 'Nombre Asignatura' FROM PGN.CARRERA_ESTUDIANTE A INNER JOIN PGN.ASIGNATURA_CARRERA B ON (A.IDCARRERA = B.IDCARRERA) INNER JOIN PGN.ASIGNATURA C ON (B.IDASIGNATURA = C.IDASIGNATURA) WHERE A.IDCARRERA_ESTUDIANTE = ?"
+    const connection = await mysql2.createConnection(conection.db);
+    const [result, ] = await connection.execute(sql, [idCursoEstudiante])
+    return result
+}
 //funciona
 async function getasignaturas(){
     const sql='SELECT `idAsignatura` Id,`Nombre_Asignatura` Asignatura , `Semestre`, `Descripcion`, `Unidad_de_credito` Creditos, `Observacion`, `Contenido` FROM pgn.asignatura'
@@ -21,7 +27,12 @@ async function getasignaturas(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
-
+async function asignacionDocente(IdDocenteAsignatura){
+    const sql="select asig.`idAsignatura` Id,asig.`Nombre_Asignatura` Asignatura, asig.Semestre,asig.Descripcion,asig.`Unidad_de_credito` Creditos,asig.Observacion,asig.Contenido from asignatura asig INNER JOIN docenteasignatura docasig on asig.idAsignatura=docasig.IdAsignatura where docasig.IdDocenteAsignatura=?;"
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,IdDocenteAsignatura);
+    return resul
+}
 //funciona
 async function createasignatura(asignatura){
     console.log(asignatura)
@@ -53,4 +64,4 @@ async function updateasignatura(idAsignatura,Nombre_Asignatura,Semestre,Descripc
     }
     return {codigo:'error',descricion:'La asignatura  no fue actualizado  exitosamente'}
 }
-module.exports={getasignatura,getasignaturas,createasignatura,deleteasignatura,updateasignatura,returnasignaturabyestudiante}
+module.exports={findAsignaturaByCursoEstudiante,getasignatura,getasignaturas,createasignatura,deleteasignatura,updateasignatura,returnasignaturabyestudiante,asignacionDocente}

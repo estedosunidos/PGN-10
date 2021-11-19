@@ -29,11 +29,12 @@ async function returnanota(idcursoestudiante,idperido){
         let nota=await returnacalificacion(corte.Idasignaturadocentecorte,idcursoestudiante)
         corte['calificaciones']=nota
         let promedio= await returnpromedio(corte.Idasignaturadocentecorte,idcursoestudiante)
-        promediototal=promediototal+(parseFloat(promedio[0].Notacorte) * promedio[0].Pocentaje / 100)
+        promediototal=promediototal+(parseFloat(promedio[0].Notacorte) *( promedio[0].Porcentaje) / 100)
         corte['totalcorte']=promedio[0]
     }
     notas["notas"]=resul
-    notas["totalpromedioasignatura"]=promediototal
+    console.log(promediototal)
+    notas["totalpromedioasignatura"]=Number.isNaN(promediototal)?0:promediototal
     return notas
 } 
 async function returnperiodobycarreraestudiante(idcarreraestudiante){
@@ -84,7 +85,8 @@ async function returnacalificacion(idasignaturadocentecorte,idcursoestudiante){
     return resul
 }
 async function returnpromedio(idasignaturadocentecorte,idcursoestudiante){
-    const sql="SELECT CAST(SUM((A.Porcentaje * NVL(B.Calificacion, 0)) / 100) AS DECIMAL(4,2)) Notacorte, C.Pocentaje FROM PGN.PLANEVALUACION A LEFT JOIN PGN.NOTAS B ON (A.IDPLANEVALUACION = B.IDPLANEVALUACION AND B.IDCURSO_ESTUDIANTES = ?) INNER JOIN PGN.ASIGNATURADOCENTECORTE C ON (A.IDASIGNATURADOCENTECORTE = C.IDASIGNATURADOCENTECORTE) WHERE A.IDASIGNATURADOCENTECORTE = ?"
+    console.log(idasignaturadocentecorte,idcursoestudiante)
+    const sql="select NVL(CAST(SUM((A.Porcentaje * NVL(B.Calificacion, 0)) / 100) AS DECIMAL(4,2)),0) Notacorte, NVL(C.Pocentaje,0) Porcentaje FROM PGN.PLANEVALUACION A LEFT JOIN PGN.NOTAS B ON (A.IDPLANEVALUACION = B.IDPLANEVALUACION AND B.IDCURSO_ESTUDIANTES = ?) INNER JOIN PGN.ASIGNATURADOCENTECORTE C ON (A.IDASIGNATURADOCENTECORTE = C.IDASIGNATURADOCENTECORTE) WHERE A.IDASIGNATURADOCENTECORTE = ?"
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul,]=await conectin1.execute(sql,[idcursoestudiante,idasignaturadocentecorte]);
     return resul
@@ -136,3 +138,4 @@ async function updatenotas(idNotas,Observacion,Calificacion){
     return {codigo:'error',descricion:'La nota no fue actualizado  exitosamente'}
 }
 module.exports={getNota,getNotas,createnotas,deletenotas,updatenotas,returnestudiante,returnlaactividadesdependedeidcorteyidasignatura,returnanota,returnperiodobycarreraestudiante}
+

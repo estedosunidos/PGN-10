@@ -14,6 +14,18 @@ router.get('/:idUbicacion',async function(req,res,next){
         next(error);
     }
 });
+router.get('/franjahorario/:idFranja_Horario',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.returnaubicacionbyIdUbicacion([req.params.idFranja_Horario]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 router.get('/',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);

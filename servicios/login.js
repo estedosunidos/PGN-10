@@ -38,21 +38,37 @@ async function autenticacion(nombre_usuario,contrasena){
     }
     return usuario
 }
+async function updatedcambiolastpassword(documento){
+    const sql="select * from pgn.usuario where Documento=?"
+    const conection1=await mysql2.createConnection(conection.db);
+    const [resul,]=await conection1.execute(sql,[documento]);
+    return resul
+}
 //funciona
 async function updatedcambiopassword(contrasena,documento){
     if('Contraseña' in contrasena){
         contrasena['Contraseña']=encripto.encripaes(contrasena['Contraseña']);
      }
-     contrasena=Object.values(contrasena);
-     contrasena.push(documento);
-    const sql='UPDATE `pgn`.`usuario` SET `Contraseña` =? WHERE Documento = ?';
-    const conection1=await mysql2.createConnection(conection.db);
-    const [resul,]=await conection1.execute(sql,contrasena);
-    if(resul.affectedRows){
-        return {codigo:'ok',descricion:'La contraseña  fue actualizada'}
+     console.log(contrasena)
+     let modificar=await updatedcambiolastpassword(documento)
+     if (modificar.length>0){
+    let contrasena3=modificar[0]["Contraseña"]
+    console.log(encripto.descripaes(contrasena3),contrasena["AntiguaContraseña"])
+       if(encripto.descripaes(contrasena3)==contrasena["AntiguaContraseña"]){
+        const sql='UPDATE `pgn`.`usuario` SET `Contraseña` =? WHERE Documento = ?';
+        const conection1=await mysql2.createConnection(conection.db);
+        const [resul,]=await conection1.execute(sql,[contrasena["Contraseña"],documento]);
+        if(resul.affectedRows){
+            return {codigo:'ok',descricion:'La contraseña  fue actualizada'}
+        }
+        return {codigo:'error',descricion:' La contraseña no fue actualizado exitosamente'}
+       }else{
+        return {codigo:'error',descricion:' La contraseña no es igual ala antigua contraseña'}
+       }
+     }else{
+        return {codigo:'error',descricion:' El documento no existe'}
+     }
     }
-    return {codigo:'error',descricion:' La contraseña no fue actualizado exitosamente'}
-}
 //funciona
 async function cierreseccion(Documento){
     const sql='UPDATE pgn.usuario SET Fecha_Egreso=current_date() where Documento=?';

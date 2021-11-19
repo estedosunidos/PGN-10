@@ -14,6 +14,18 @@ router.get('/:idestudiantes',async function(req,res,next){
         next(error);
     }
 });
+router.get('/consultahorario/:idcarreraestudiante',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.mostrahorario([req.params.idcarreraestudiante]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
 router.get('/',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);

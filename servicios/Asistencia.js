@@ -21,7 +21,7 @@ async function getasistencias(){
         return resul
 }//funciona
 async function returnestudiante(estudiante){
-    const sql ="SELECT cues.idCurso_Estudiante , us.Documento,us.Apellido,us.Nombre,asi.idAsistencia,nvl(asi.Asistio,'N') Asistio FROM pgn.curso_estudiante cues inner join pgn.estudiantes es on cues.IdEstudiante=es.idEstudiantes inner join pgn.usuario us on us.Documento = es.Documento left join pgn.asistencia asi on  asi.IdDocente=? and asi.Fecha=? and asi.idCurso_Estudiantes = cues.idCurso_Estudiante where cues.IdCurso=?"
+    const sql ="SELECT cues.idCurso_Estudiante , us.Documento,us.Apellido,us.Nombre,asi.idAsistencia,nvl(asi.Asistio,'N')asistio FROM pgn.curso_estudiante cues inner join pgn.estudiantes es on cues.IdEstudiante=es.idEstudiantes inner join pgn.usuario us on us.Documento = es.Documento left join pgn.asistencia asi on  asi.IdDocente=? and asi.Fecha=? and asi.idCurso_Estudiantes = cues.idCurso_Estudiante where cues.IdCurso=?"
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,estudiante);
     return resul

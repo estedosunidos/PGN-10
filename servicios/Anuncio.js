@@ -16,7 +16,8 @@ async function getanucios(){
 }
 //funciona
 async function createanuncio(datomensaje){
-    const sql='INSERT INTO `pgn`.`anuncio` (`Mensaje`, `IdCurso`) VALUES (?,?)'
+    console.log(datomensaje)
+    const sql='INSERT INTO `pgn`.`anuncio` (`Mensaje`,IdCurso) VALUES (?,?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,datomensaje);
     if(resul.affectedRows){

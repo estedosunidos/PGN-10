@@ -14,6 +14,12 @@ async function getubicaiones(){
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+async function returnaubicacionbyIdUbicacion(idFranja_Horario){
+    const sql="select ub.idUbicacion Id,ub.Capacidad,ub.Direccion Ubicacion  from ubicacion ub INNER JOIN franja_horario farh on ub.idUbicacion=farh.idUbicacion where farh.idFranja_Horario=?;"
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,idFranja_Horario);
+    return resul
+}
 //funciona
 async function createubicacion(idUbicacion){
     const sql='INSERT INTO `pgn`.`ubicacion` (`Capacidad`, `Direccion`) VALUES (?,?)'
@@ -44,4 +50,4 @@ async function updateubicacion(idUbicacion,Capacidad,Direccion){
     }
     return {codigo:'error',descricion:'La ubicacion  no fue actualizado  exitosamente'}
 }
-module.exports={getubicaion,getubicaiones,createubicacion,deleteubicacion,updateubicacion}
+module.exports={getubicaion,getubicaiones,createubicacion,deleteubicacion,updateubicacion,returnaubicacionbyIdUbicacion}

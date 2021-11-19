@@ -6,10 +6,11 @@ async function getPlanEvaluacion(idPlanEvaluacion){
     const [resul,]=await conectin1.execute(sql,idPlanEvaluacion);
     return resul
 }
-async function getPlanEvaluaciones(){
-    const sql='SELECT asig.	Nombre_Asignatura "Nombre Asignatura",EV.Descripcion `Tipo de evaluacion`,plan.Descripcion "Actividad/Tema", plan.FechaInicialProgramada "Fecha Inicio" ,plan.FechaFinalProgramada "Fecha Fin" , co.Descripcion,plan.Porcentaje FROM pgn.evaluacionestipo EV inner join pgn.planevaluacion plan on EV.idEvaluacionesTipo=plan.idEvaluacionesTipo inner join pgn.asignaturadocentecorte adc on adc.Idasignaturadocentecorte=plan.Idasignaturadocentecorte inner join pgn.corte co on co.IdCorte=adc.IdCorte inner join pgn.docenteasignatura doasig on doasig.idDocenteAsignatura=adc.IdAsignaturaDocente inner join pgn.asignatura asig on asig.idAsignatura=doasig.IdAsignatura '
+async function getPlanEvaluaciones(IdAsignaturaDocente){
+    console.log(IdAsignaturaDocente)
+    const sql='SELECT plan.IdPlanEvaluacion,EV.Descripcion `Tipo de evaluacion`,plan.Descripcion "Actividad/Tema", plan.FechaInicialProgramada "Fecha Inicio" ,plan.FechaFinalProgramada "Fecha Fin" , co.Descripcion,plan.Porcentaje FROM pgn.evaluacionestipo EV inner join pgn.planevaluacion plan on EV.idEvaluacionesTipo=plan.idEvaluacionesTipo inner join pgn.asignaturadocentecorte adc on adc.Idasignaturadocentecorte=plan.Idasignaturadocentecorte inner join pgn.corte co on co.IdCorte=adc.IdCorte inner join pgn.docenteasignatura doasig on doasig.idDocenteAsignatura=adc.IdAsignaturaDocente inner join pgn.asignatura asig on asig.idAsignatura=doasig.IdAsignatura where adc.IdAsignaturaDocente=?'
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul, ]=await conectin1.execute(sql,);
+    const [resul, ]=await conectin1.execute(sql,[IdAsignaturaDocente]);
     return resul
 }
 async function createPlaEvaluacion(idPlanEvaluacion){
@@ -24,6 +25,7 @@ async function createPlaEvaluacion(idPlanEvaluacion){
     }
 }
 async function deletePlanEvaluacion(IdPlanEvaluacion){
+    console.log(IdPlanEvaluacion)
     const sql='DELETE FROM `pgn`.`planevaluacion` WHERE `IdPlanEvaluacion`= ?'
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,IdPlanEvaluacion);

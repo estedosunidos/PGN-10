@@ -2,6 +2,20 @@ const express=require('express');
 const router=express.Router();
 const servicios=require('../servicios/Asignatura');
 const auteticacion=require('../utilidades/autenticacion');
+
+router.get('/carreraestudiante/:idcarreraestudiante',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.findAsignaturaByCursoEstudiante(req.params.idcarreraestudiante));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+
 router.get('/:idAsignatura',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);
@@ -9,6 +23,18 @@ router.get('/:idAsignatura',async function(req,res,next){
             return res.status(validacion.codigo).json(validacion)
         }
         res.json(await servicios.getasignatura([req.params.idAsignatura]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.get('/asignaturadocente/:IdDocenteAsignatura',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.asignacionDocente([req.params.IdDocenteAsignatura]));
     } catch (error) {
         console.error('error', error.message);
         next(error);

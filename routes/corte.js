@@ -22,6 +22,7 @@ router.post('/asignaturaporcorte',async function(req,res,next){
         if(validacion.codigo!=0){
            return res.status(validacion.codigo).json(validacion)
         }
+        console.log(1)
         res.json(await servicio1.createcortebyasignatura(req.body));
     } catch (error) {
         console.error('error', error.message);

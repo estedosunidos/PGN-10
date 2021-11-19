@@ -20,6 +20,18 @@ router.get('/carreraestudiante/:idCarrera_Estudiante',async function(req,res,nex
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
+        res.json(await servicios.asignacionEstudiante([req.params.idCarrera_Estudiante]));
+    } catch (error) {
+        console.error('error', error.message);
+        next(error);
+    }
+});
+router.get('/carreraestudiante/:idCarrera_Estudiante',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
         res.json(await servicios.getcarrerabyestudiante([req.params.idCarrera_Estudiante]));
     } catch (error) {
         console.error('error', error.message);

@@ -16,7 +16,6 @@ router.get('/:idCurso',async function(req,res,next){
 });
 router.get('/docenteasignatura/:idasignaturacarrera',async function(req,res,next){
     try {
-        console.log(1)
         const validacion=auteticacion.validaciontoken(req.headers.authorization);
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)

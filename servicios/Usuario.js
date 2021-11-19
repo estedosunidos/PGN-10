@@ -20,11 +20,12 @@ async function getusuariobynombreusuario(nombreusuario){
 }
 //funciona
 async function getusuarios(){
-    const sql='SELECT `Documento`,`Nombre` `Nombres`,`Apellido` `Apellidos`,`Telefono`,`Direccion`,`Fecha_de_nacimiento` `Fecha Nacimiento`, `Email`,`Nombre_de_Usuario` `Nombre Usuario` ,`descricion` `Perfil` FROM pgn.usuario us INNER JOIN pgn.perfil pe on pe.idperfil=us.idperfil '
+    const sql='SELECT `Documento`,`Nombre` `Nombres`,`Apellido` `Apellidos`,`Telefono`,`Direccion`,date_format(`Fecha_de_nacimiento`,"%Y/%m/%d") `Fecha Nacimiento`, `Email`,`Nombre_de_Usuario` `Nombre Usuario` ,`descricion` `Perfil` FROM pgn.usuario us INNER JOIN pgn.perfil pe on pe.idperfil=us.idperfil '
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
 }
+
 async function asignacionUsuario(nombre,apellido){
     let contador=0
     let existeusuario
@@ -111,13 +112,9 @@ async function  updateusuariofoto(documento,foto) {
 }
 //funciona
 async function updatedatousuario(documento,datosusuario){
-    if('Contraseña' in datosusuario){
-
-        datosusuario['Contraseña']=encripto.encripaes(datosusuario['Contraseña']);
-     }
     datosusuario=Object.values(datosusuario);
     datosusuario.push(documento);
-    const sql='UPDATE `pgn`.`usuario` SET   `Documento`=?,`Nombre`=?,`Apellido`=?, `Telefono` =?, `Direccion` = ?,`Fecha_de_nacimiento`=?,`Email` = ?,`Contraseña` =? WHERE Documento = ?';
+    const sql='UPDATE `pgn`.`usuario` SET   `Documento`=?,`Nombre`=?,`Apellido`=?, `Telefono` =?, `Direccion` = ?,`Fecha_de_nacimiento`=?,`Email` = ? WHERE Documento = ?';
     const conection1=await  mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,datosusuario);
     if(resul.affectedRows){

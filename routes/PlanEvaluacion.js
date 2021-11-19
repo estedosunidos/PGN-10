@@ -14,13 +14,13 @@ router.get('/:idPlanEvaluacion',async function(req,res,next){
         next(error);
     }
 });
-router.get('/',async function(req,res,next){
+router.get('/asignaturadocente/:Idasignaturadocente',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
         }
-        res.json(await servicios.getPlanEvaluaciones());
+        res.json(await servicios.getPlanEvaluaciones(req.params.Idasignaturadocente));
     } catch (error) {
         console.error('error', error.message);
         next(error);
