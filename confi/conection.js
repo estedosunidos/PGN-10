@@ -1,8 +1,8 @@
 const mysql1={db:{
-    host:'database-pgn.cr7lbmmfhfmd.us-east-2.rds.amazonaws.com',
+    host:'127.0.0.1',
     database:'pgn',
     port:'3306',
     user:'root',
-    password:'miniTa123'
+    password:''
 }}
 module.exports=mysql1

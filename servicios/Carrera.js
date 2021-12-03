@@ -12,7 +12,7 @@ async function getcarrera(idCarrera){
 }
 //funciona
 async function getcarreras(){
-    const sql='SELECT `idCarrera` Id,`Nombre_Carrera` Carrera  ,`CantidadSemestre` Semestres,`TotalCredito` `Total Creditos` FROM pgn.carrera'
+    const sql='SELECT `idCarrera` Id,`Nombre_Carrera` Carreras  ,`CantidadSemestre` Semestres,`TotalCredito` `Total Creditos` FROM pgn.carrera'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
@@ -35,7 +35,7 @@ async function getcarrerabyestudiante(IdCarrera){
 }
 //funciona
 async function creatcarrera(idCarrera){
-    const sql='INSERT INTO `pgn`.`carrera` (`Nombre_Carrera`,`CantidadSemestre`,`TotalCredito`,`idAdministrador`) VALUES (?,?,?,?)'
+    const sql='INSERT INTO `pgn`.`carrera` (`Nombre_Carrera`,`CantidadSemestre`,`TotalCredito`) VALUES (?,?,?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idCarrera);
     if(resul.affectedRows){

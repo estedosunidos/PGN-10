@@ -22,7 +22,7 @@ async function findAsignaturaByCursoEstudiante(idCursoEstudiante) {
 }
 //funciona
 async function getasignaturas(){
-    const sql='SELECT `idAsignatura` Id,`Nombre_Asignatura` Asignatura , `Semestre`, `Descripcion`, `Unidad_de_credito` Creditos, `Observacion`, `Contenido` FROM pgn.asignatura'
+    const sql='SELECT `idAsignatura` Id,`Nombre_Asignatura` Asignaturas , `Semestre`, `Descripcion`, `Unidad_de_credito` Creditos, `Observacion`, `Contenido` FROM pgn.asignatura'
     const conectin1=await mysql2.createConnection(conection.db);
     const [resul, ]=await conectin1.execute(sql,);
     return resul
@@ -36,7 +36,7 @@ async function asignacionDocente(IdDocenteAsignatura){
 //funciona
 async function createasignatura(asignatura){
     console.log(asignatura)
-    const sql='INSERT INTO `pgn`.`asignatura` (`Nombre_Asignatura`, `Semestre`, `Descripcion`, `Unidad_de_credito`, `Observacion`, `Contenido`,`idAdministrador`,`FechaActualizacion`) VALUES (?,?,?,?,?,?,?,current_TIMESTAMP())'
+    const sql='INSERT INTO `pgn`.`asignatura` (`Nombre_Asignatura`, `Semestre`, `Descripcion`, `Unidad_de_credito`, `Observacion`, `Contenido`,`FechaActualizacion`) VALUES (?,?,?,?,?,?,current_TIMESTAMP())'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,asignatura);
     if(resul.affectedRows){
