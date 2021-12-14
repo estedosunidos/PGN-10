@@ -64,14 +64,14 @@ router.get('/asignaturacorte/:idCorte/:IdAsignaturaDocente',async function(req,r
         next(error);
     }
 })
-router.get('/returnperiodobycarreraestudiante/:idcarreraestudiante',async function(req,res,next){
+router.get('/returnperiodobycarreraestudiante/:idcarreraestudiante/:idperido',async function(req,res,next){
     try {
         const validacion=auteticacion.validaciontoken(req.headers.authorization);
         if(validacion.codigo!=0){
             return res.status(validacion.codigo).json(validacion)
        
        }
-        res.json(await servicios.returnperiodobycarreraestudiante([req.params.idcarreraestudiante]));
+        res.json(await servicios.returnperiodobycarreraestudiante([req.params.idcarreraestudiante,req.params.idperido]));
     } catch (error) {
         console.error('error', error.message);
         next(error);

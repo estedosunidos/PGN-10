@@ -18,6 +18,12 @@ async function periodobyasignatura(idcursoestudiante){
     const [resul, ]=await conectin1.execute(sql,idcursoestudiante);
     return resul
 }
+async function periodobycarrera(idCarrera_Estudiante){
+    const sql="select DISTINCT  per.IdPeriodo,per.Descripcion FROM pgn.carrera_estudiante cares INNER JOIN pgn.estudiantes es on cares.IdEstudiante=es.IdEstudiantes INNER JOIN pgn.curso_estudiante curest on es.IdEstudiantes=curest.IdEstudiante INNER JOIN pgn.curso cur on curest.IdCurso=cur.IdCurso Inner Join pgn.periodo per on cur.IdPeriodo=per.IdPeriodo  WHERE cares.idCarrera_Estudiante=?"
+    const conectin1=await mysql2.createConnection(conection.db);
+    const [resul, ]=await conectin1.execute(sql,idCarrera_Estudiante);
+    return resul
+}
 async function Insertperiodo(Descripcion){
     const sql="insert into pgn.periodo (Descripcion,year,Fecha_Inicio,Fecha_Final) values (?,?,?,?)"
     const conectin1=await mysql2.createConnection(conection.db);
@@ -56,4 +62,4 @@ async function deleteperiodo(IdPeriodo){
     }
 
 }
-module.exports={deleteperiodo,Updateperiodo,Insertperiodo,getperiodo,getperiodos,returnperiodo,periodobyasignatura}
+module.exports={deleteperiodo,Updateperiodo,Insertperiodo,getperiodo,getperiodos,returnperiodo,periodobyasignatura,periodobycarrera}

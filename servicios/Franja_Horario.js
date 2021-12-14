@@ -19,6 +19,7 @@ async function retunFranjasbycurso(Id){
     return resul
 }
 async function createFranja_horarios(idFranja_Horario){
+    console.log(idFranja_Horario)
     const sql='INSERT INTO `pgn`.`franja_horario` (`HoraInicio`, `HoraFinal`, `Dia`,`idUbicacion`,`IdCurso`) VALUES (?,?,?,?,?)'
     const conection1=await mysql2.createConnection(conection.db);
     const [resul,]=await conection1.execute(sql,idFranja_Horario);

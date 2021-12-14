@@ -1,3 +1,4 @@
+const res = require('express/lib/response');
 const mysql2= require('mysql2/promise');
 const conection=require('../confi/conection');
 async function getNota(idNotas){
@@ -33,22 +34,20 @@ async function returnanota(idcursoestudiante,idperido){
         corte['totalcorte']=promedio[0]
     }
     notas["notas"]=resul
-    console.log(promediototal)
     notas["totalpromedioasignatura"]=Number.isNaN(promediototal)?0:promediototal
     return notas
 } 
 async function returnperiodobycarreraestudiante(idcarreraestudiante){
+    console.log(idcarreraestudiante)
     let creditoporsemestre={}
     const sql="SELECT DISTINCT per.IdPeriodo,per.Descripcion FROM pgn.carrera_estudiante carres INNER JOIN curso_estudiante cuest on carres.idCarrera_Estudiante = cuest.Idcarreraestudiante INNER JOIN pgn.curso cu on cu.IdCurso=cuest.IdCurso INNER JOIN pgn.periodo per on per.IdPeriodo=cu.IdPeriodo where carres.idCarrera_Estudiante=?"
     const conectin1=await mysql2.createConnection(conection.db);
-    const [resul,]=await conectin1.execute(sql,idcarreraestudiante);
+    const [resul,]=await conectin1.execute(sql,[idcarreraestudiante[0]]);
     let totalcreditoporsemetre=0
     let promediocarrera=0
     for(let periodo of resul){
-        console.log(periodo)
         let asignaturas=await returncursoestudiantebyidasignatura(idcarreraestudiante,periodo.IdPeriodo)
         totalcreditoporsemetre=totalcreditoporsemetre+asignaturas.credito
-        console.log(asignaturas)
         periodo["asignaturas"]=asignaturas.asignaturas
         periodo["creditoporsemestre"]=asignaturas.credito
         periodo["notaporsemetre"]=asignaturas.nota/asignaturas.credito

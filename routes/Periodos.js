@@ -5,10 +5,10 @@ const auteticacion=require('../utilidades/autenticacion');
 const { route } = require('./Docente');
 router.get('/',async function(req,res,next){
     try {
-        ///const validacion=auteticacion.validaciontoken(req.headers.authorization);
-        //if(validacion.codigo!=0){
-          //  return res.status(validacion.codigo).json(validacion)
-        //}
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
         res.json(await servicios.getperiodos());
     } catch (error) {
         console.error('error', error.message);
@@ -17,22 +17,32 @@ router.get('/',async function(req,res,next){
 })
 router.get('/periodobyasignatura/:idcursoestudiante',async function(req,res,next){
     try {
-        ///const validacion=auteticacion.validaciontoken(req.headers.authorization);
-        //if(validacion.codigo!=0){
-          //  return res.status(validacion.codigo).json(validacion)
-        //}
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
         res.json(await servicios.periodobyasignatura([req.params.idcursoestudiante]));
     } catch (error) {
         console.error('error', error.message);
-    }
-        
+    }        
+})
+router.get('/periodobycarrera/:idCarrera_Estudiante',async function(req,res,next){
+    try {
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+            return res.status(validacion.codigo).json(validacion)
+        }
+        res.json(await servicios.periodobycarrera([req.params.idCarrera_Estudiante]));
+    } catch (error) {
+        console.error('error', error.message);
+    }        
 })
 router.get('/:IdPeriodo',async function(req,res,next){
     try {
-        //const validacion=auteticacion.validaciontoken(req.headers.authorization);
-        //if(validacion.codigo!=0){
-          //  return res.status(validacion.codigo).json(validacion)
-        //}
+        const validacion=auteticacion.validaciontoken(req.headers.authorization);
+        if(validacion.codigo!=0){
+              return res.status(validacion.codigo).json(validacion)
+        }
         res.json(await servicios.getperiodo([req.params.IdPeriodo]));
     } catch (error) {
         console.error('error', error.message);
